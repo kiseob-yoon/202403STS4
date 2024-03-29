@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ks.repository.StoreMapper">
+	<select id="selectCount" resultType="Integer">
+		select count(*) from store
+	</select>
+
+
+	<select id="selectStoreList" resultType="com.ks.dto.Store">
+		<![CDATA[
+			SELECT
+				id,
+				storename,
+				business,
+				tel,
+				address,
+				grade,
+				thema
+			FROM
+				store
+			ORDER BY id asc
+		]]>
+	</select>
+
+	<select id="selectStoretById" resultType="com.ks.dto.Store">
+		<![CDATA[
+			SELECT
+				id,
+				storename,
+				business,
+				tel,
+				address,
+				grade,
+				thema
+			FROM
+				store
+			where id = #{id}
+		]]>
+	</select>
+
+	<insert id="insertStore" parameterType="com.ks.dto.Store"> 
+	<![CDATA[
+			INSERT INTO store
+			(
+				storename,
+				business,
+				tel,
+				address,
+				grade,
+				thema
+			) 
+			VALUES 
+			(
+				#{storename}, 
+				#{business},
+				#{tel},
+				#{address},
+				#{grade},
+				#{thema}		
+			)
+		]]>
+	</insert>
+
+	<delete id="deleteStore" parameterType="int">
+	<![CDATA[
+		delete from store where id = #{id}
+	
+	]]>
+	</delete>
+
+	<update id="updateStore" parameterType="com.ks.dto.Store">
+	<![CDATA[
+	update store set 
+	storename=#{storename}, 
+	business=#{business}, 
+	tel=#{tel},
+	address=#{address},
+	grade=#{grade},
+	thema=#{thema} 
+	where id = #{id}
+	]]>
+
+	</update>
+
+
+</mapper>

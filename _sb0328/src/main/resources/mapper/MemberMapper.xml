@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ks.repository.MemberMapper">
+
+    <select id="selectMemberById" resultType="com.ks.model.Member">
+        SELECT member_id
+        	 ,city
+        	 ,name
+        	 ,street
+        	 ,zipcode
+        FROM member
+        WHERE member_id = #{param1}
+    </select>
+    
+</mapper>

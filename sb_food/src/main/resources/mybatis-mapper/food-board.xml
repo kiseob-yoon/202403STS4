@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ks.repository.FoodMapper">
+	<select id="selectCount" resultType="Integer">
+		select count(*) from menu
+	</select>
+
+
+<select id="selectFoodList" resultType="com.ks.dto.Food">
+    SELECT num, menu, price, item, id
+    FROM menu
+    WHERE id = #{id}
+</select>
+
+	<select id="selectMenutById" resultType="com.ks.dto.Food">
+    <![CDATA[
+        SELECT
+            num,
+           	menu,
+            price,
+            item,
+            id
+        FROM
+            menu
+        WHERE
+            num = #{num}
+    ]]>
+	</select>
+
+
+	<insert id="insertMenu" parameterType="com.ks.dto.Food"> 
+	<![CDATA[
+			INSERT INTO menu
+			(
+				menu,
+				price,
+				item,
+				id
+			) 
+			VALUES 
+			(
+				#{menu}, 
+				#{price},
+				#{item},
+				#{id}		
+			)
+		]]>
+	</insert>
+
+	<delete id="deleteMenu" parameterType="int">
+	<![CDATA[
+		delete from menu where num = #{num}
+	
+	]]>
+	</delete>
+
+	<update id="updateMenu" parameterType="com.ks.dto.Food">
+	<![CDATA[
+	update menu set 
+	menu=#{menu}, 
+	price=#{price}, 
+	item=#{item} 
+	where num = #{num}
+	]]>
+
+	</update>
+
+
+</mapper>
