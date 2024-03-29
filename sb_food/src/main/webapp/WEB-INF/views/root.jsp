@@ -18,11 +18,12 @@
 <body>
 <h1>맛집랭킹</h1>
 <h2>천진분식</h2>
-<img id="rest_bigimg" src="img/cheon/img.jpeg"></br>
-<a href="menupan?id=1"><button>자세히 보기</button>
+<img id="rest_bigimg" src="img/1/img.jpeg"></br>
+<a href="menupan?id=1"><button>자세히 보기</button></a>
+
 
 <h2>맘스터치</h2>
-<img id="rest_bigimg" src="img/mom/img.jpeg"></br>
-<a href="menupan?id=3"><button>자세히 보기</button>
+<img id="rest_bigimg" src="img/3/img.jpeg"></br>
+<a href="menupan?id=3"><button>자세히 보기</button></a>
 </body>
 </html>

@@ -75,7 +75,7 @@
 			<div class="areaThumbnail">
 				<dl>
 					<dt>
-						<img id="rest_bigimg" src="img/cheon/img.jpeg">
+						<img id="rest_bigimg" src="img/${store.id}/img.jpeg">
 					</dt>
 				</dl>
 			</div>

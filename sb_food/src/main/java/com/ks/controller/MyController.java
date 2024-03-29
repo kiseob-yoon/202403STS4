@@ -24,6 +24,11 @@ public class MyController {
 	@Autowired
 	private StoreService storeService;
 	
+	@GetMapping("/login_main")
+	public String loginForm() {
+		return "login_main";
+	}
+	
 	@GetMapping("/")
 	public String root(Model model) {
 		return "root";
