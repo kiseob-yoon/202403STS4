@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${path}assets/js/color-modes.js"></script>
+<script src="assets/js/color-modes.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -179,17 +179,17 @@
 		</ul>
 	</div>
 	<%
-    if ((String)session.getAttribute("userId") != null) {          
+    if ((String)session.getAttribute("id") != null) {          
         // 로그인 상태일 때의 출력 
         
 %>
 	<main
 		class="container d-flex align-items-center justify-content-center">
 
-			<form action="logout.jsp" method="post">
+			<form action="logout" method="post">
 				<img class="mb-4" src="${path}/assets/brand/door-open.svg" alt=""
 					width="72" height="57">
-				<%=(String)session.getAttribute("userName")%>님
+				${login.name}
 
 
 				<button class="btn btn-primary w-100 py-2" type="submit">로그아웃</button>
@@ -203,14 +203,14 @@
 
 		</form>
 	</main>
-	<script src="${path}/assets/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 
 	<%  
     } else {                       
         
 %>		
             <main class="container center-form">
-            <form action="login.jsp" method="post" class="col-md-6">
+            <form action="login" method="post" class="col-md-6">
 			<img class="mb-4" src="${path}/assets/brand/door-open.svg" alt=""
 				width="72" height="57">
 			<h1 class="h3 mb-3 fw-normal">로그인</h1>
@@ -243,7 +243,7 @@
 			<p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
 		</form>
 	</main>
-	<script src="${path}/assets/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 
 
 	<%

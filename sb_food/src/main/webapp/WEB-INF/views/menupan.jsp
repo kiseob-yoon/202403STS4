@@ -24,10 +24,10 @@
 			<div class="header">
 
 				<div class="login">
-					<span> <a
-						href="/login.asp?returnPage=%2Frestaurant%2Fonepage%2Easp%3Facode%3DH119975"><img
-							src="/IMAGE/Restaurant/Onepage/navi_login.gif" alt="로그인"></a>
-
+					<span style="font-size:25px;"> <a
+						href="/"><img
+							src="img/menupan.png" alt="홈" width="100" height="100"></a>
+							이대맛집
 					</span>
 				</div>
 			</div>
@@ -146,9 +146,15 @@
 							<td class="center-text"><a
 								href="updateForm?num=${item.getNum()}">
 									<button>수정</button>
-							</a> <a href="#" class="delete-link" data-num="${item.getNum()}">
-									<button class="delete-button">삭제</button>
-							</a></td>
+							</a>
+							
+								<a href="delete?num=${item.getNum()}&id=${item.getId()}">
+								<button>삭제</button>
+								</a>
+												
+							<%-- <a href="#" class="delete-link" data-num="${item.getNum()}"> 
+									<button class="delete-button">삭제</button></a> --%>
+							</td>
 						</tr>
 					</tbody>
 				</c:forEach>
@@ -156,8 +162,15 @@
 
 		</div>
 
-		<a href="insertForm?id=${store.id}">메뉴 등록</a>
-
+		<a href="insertForm?id=${store.id}">메뉴 등록</a><p>
+		
+		<h3>리뷰&평가</h3>
+		<div class="reviewInfo">
+		<form style="border">
+		<textarea name="content" rows="10"></textarea>
+		<input type="submit" value="글쓰기">
+		
+		</form>
 
 	</div>
 	</div>
@@ -172,9 +185,11 @@
 
 				if (result) {
 					location.href = 'delete?num=' + num;
+					
 				}
 			});
 		});
+		
 	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
