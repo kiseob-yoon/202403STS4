@@ -162,15 +162,32 @@
 
 		</div>
 
-		<a href="insertForm?id=${store.id}">메뉴 등록</a><p>
+		<a href="insertForm?id=${store.id}">
+		<button>메뉴 등록</button></a>
+		<p>
 		
 		<h3>리뷰&평가</h3>
+		
+		<div>
+		<c:forEach var="comment" items="${comments}">
+		<section>
+			<img id="user" src="img/user.png">
+            <div class="nickname">${comment.getNickname()}</div>
+            <div class="comment">${comment.getComment()}</div>
+		
+		</section>
+		</c:forEach>
+		</div>
+		
 		<div class="reviewInfo">
-		<form style="border">
-		<textarea name="content" rows="10"></textarea>
+		<form action="commentAdd" style="border">
+		닉네임<input type="text" name="nickname" style="margin-bottom:10px;">
+		<input type="hidden" name="id" value="${store.id}">
+		<textarea name="comment" rows="10"></textarea>
 		<input type="submit" value="글쓰기">
 		
 		</form>
+		</div>
 
 	</div>
 	</div>

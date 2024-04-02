@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ks.repository.CommentsMapper">
+	<select id="selectCount" resultType="Integer">
+		select count(*) from
+		comments
+	</select>
+
+	<select id="selectAll" resultType="com.ks.dto.Comments">
+		select c.nickname, c.comment
+		from comments c
+		join store s on c.id = s.id
+		where c.id = #{id}
+	</select>
+
+
+	<select id="selectCommentsList" resultType="com.ks.dto.Comments">
+		SELECT num, nickname,
+		comment, id
+		FROM comments
+		WHERE id = #{id}
+	</select>
+
+	<select id="selectCommentstById"
+		resultType="com.ks.dto.Comments">
+    <![CDATA[
+        SELECT
+            num,
+           	nickname,
+            comment,
+            id
+        FROM
+            comments
+        WHERE
+            num = #{num}
+    ]]>
+	</select>
+
+
+	<insert id="insertComments" parameterType="com.ks.dto.Comments"> 
+	<![CDATA[
+			INSERT INTO comments
+			(
+				nickname,
+				comment,
+				id
+			) 
+			VALUES 
+			(
+				#{nickname}, 
+				#{comment},
+				#{id}		
+			)
+		]]>
+	</insert>
+
+	<delete id="deleteComments" parameterType="int">
+	<![CDATA[
+		delete from comments where num = #{num}
+	
+	]]>
+	</delete>
+
+	<update id="updateComments" parameterType="com.ks.dto.Comments">
+	<![CDATA[
+	update comments set 
+	nickname=#{nickname}, 
+	comment=#{comment} 
+	where num = #{num}
+	]]>
+
+	</update>
+	
+	
+	<select id="selectList" resultType="com.ks.dto.Comments">
+    select * from comments order by num desc limit #{start}, #{listSize}
+  	</select>
+
+
+
+
+
+
+
+
+</mapper>

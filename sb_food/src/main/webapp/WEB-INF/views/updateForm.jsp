@@ -24,12 +24,10 @@
 				<th>품목</th>
 				<td><input type="text" name="item" value="${update.item}"></td>
 			</tr>
-			<th>번호</th>
-			<td><input type="text" name="num" value="${update.num}" readonly></td>
+			<td><input type="hidden" name="num" value="${update.num}" readonly></td>
 			</tr>
 
-			<th>고유번호</th>
-			<td><input type="text" name="id" value="${update.id}" readonly>
+			<td><input type="hidden" name="id" value="${update.id}" readonly>
 			</td>
 			</tr>
 

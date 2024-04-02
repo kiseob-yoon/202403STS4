@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ks.dto.Comments;
 import com.ks.dto.Food;
 import com.ks.repository.FoodMapper;
+import com.ks.service.CommentsService;
 import com.ks.service.LoginService;
 import com.ks.service.MenuService;
 import com.ks.service.StoreService;
@@ -30,17 +32,21 @@ public class MyController {
 	@Autowired
 	private LoginService loginService;
 	
+	@Autowired
+	private CommentsService commentsService;
+	
+//	*로그인*
 	@GetMapping("/login_main")
 	public String loginForm(HttpSession session) {
 	    String id = (String) session.getAttribute("id");
-	    String pw = (String) session.getAttribute("pw");
+	    //String pw = (String) session.getAttribute("pw");
 		return "login_main";
 	}
 	@PostMapping("/login")
 	public String login(HttpSession session, Model model, String id, String pw) {
 		model.addAttribute("login", loginService.selectForLogin(id, pw));		
-	    session.setAttribute("id", id);
-	    session.setAttribute("pw", pw);
+	    session.setAttribute("id", loginService.selectById(id));
+//	    session.setAttribute("pw", pw);
 	    return "root";
 	}
 	@PostMapping("/logout")
@@ -49,13 +55,26 @@ public class MyController {
 		return "redirect:/login_main";
 	}
 	
+//	*댓글*
+	@GetMapping("/commentAdd")
+	public String commentAdd(Comments comments, Model model, int id) {
+		model.addAttribute("store",storeService.selectStoretById(id));
+		model.addAttribute("menu", menuService.getAllMenus(id));
+		model.addAttribute("menupan",foodMapper.selectFoodList(id));
+		commentsService.insertComments(comments);
+		return "redirect:/menupan?id"+ '=' + id;
+	}
+	
+	
+//	*메인*
+	
 	@GetMapping("/")
 	public String root() {
 		return "root";
 	}
 	
 	@GetMapping("root")
-	public String root(Model model,HttpSession session ) {
+	public String root(Model model,HttpSession session) {
 		return "root";
 	}
 	
@@ -64,6 +83,7 @@ public class MyController {
 		model.addAttribute("store",storeService.selectStoretById(id));
 		model.addAttribute("menu", menuService.getAllMenus(id));
 		model.addAttribute("menupan",foodMapper.selectFoodList(id));
+		model.addAttribute("comments", commentsService.selectAll(id));
 		return "menupan";
 	}
 	

@@ -244,3 +244,27 @@ h3 {
         width: 100%; /* 가로 크기를 100%로 설정하여 부모 요소의 너비에 맞게 늘어납니다. */
         /* 다른 스타일 추가 가능 */
     }
+    
+    section {
+        background-color: #f4f4f4; /* 배경색 */
+        padding: 10px; /* 안쪽 여백 */
+        margin-bottom: 10px; /* 아래쪽 마진 */
+        border-radius: 5px; /* 모서리 둥글게 */
+    }
+
+    /* 닉네임 스타일 */
+    .nickname {
+        font-weight: bold; /* 굵은 글꼴 */
+        color: #333; /* 글자 색상 */
+        margin-bottom:10px;
+    }
+
+    /* 댓글 내용 스타일 */
+    .comment {
+        color: #666; /* 글자 색상 */
+    }
+        #user {
+        width: 25px; /* 너비 */
+        height: 25px; /* 높이 */
+        margin-bottom:10px;
+    }

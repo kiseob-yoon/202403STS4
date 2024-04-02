@@ -24,8 +24,7 @@
 
 		</tr>
 		<tr>
-		<th>고유번호</th>
-		<td><input type="text" name="id" value="${store.id}" readonly> </td>
+		<td><input type="hidden" name="id" value="${store.id}" readonly> </td>
 		</tr>
 		
 		
