@@ -24,9 +24,13 @@
 			<div class="header">
 
 				<div class="login">
-					<span style="font-size:25px;"> <a
-						href="/"><img
-							src="img/menupan.png" alt="홈" width="100" height="100"></a>
+					<span style="font-size:25px;"> <form action="/root" method="get">
+    <input type="hidden" name="id" value="${info.id}">
+    <button type="submit">
+        <img src="img/menupan.png" alt="홈" width="100" height="100">
+    </button>
+</form>
+
 							이대맛집
 					</span>
 				</div>
@@ -177,11 +181,27 @@
 		
 		</section>
 		</c:forEach>
+		
+		<div style="width:680px; text-align:center;">	
+    	<c:forEach var="pgn" items="${pgnList}">
+		<a class="pgn" href="redirect?page=${pgn.pageNo}&id=${store.id}">
+    	<c:choose>
+        <c:when test="${pgn.curPage}">
+            <u>${pgn.display}</u>
+        </c:when>
+        <c:otherwise>
+            ${pgn.display}
+        </c:otherwise>
+    	</c:choose>
+		</a>&nbsp;
+    	</c:forEach>
+    	
+		</div>
 		</div>
 		
 		<div class="reviewInfo">
 		<form action="commentAdd" style="border">
-		닉네임<input type="text" name="nickname" style="margin-bottom:10px;">
+		아이디<input type="text" name="nickname" value="${info.name}"readonly style="margin-bottom:10px;">
 		<input type="hidden" name="id" value="${store.id}">
 		<textarea name="comment" rows="10"></textarea>
 		<input type="submit" value="글쓰기">

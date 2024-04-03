@@ -76,6 +76,14 @@
 	<select id="selectList" resultType="com.ks.dto.Comments">
     select * from comments order by num desc limit #{start}, #{listSize}
   	</select>
+  	
+  	<select id="paging" resultType="com.ks.dto.Comments">
+    SELECT c.nickname, c.comment
+	FROM comments c
+	JOIN store s ON c.id = s.id
+	WHERE c.id = #{id}
+	LIMIT #{start}, #{listSize}
+  	</select>
 
 
 

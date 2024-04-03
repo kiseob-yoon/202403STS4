@@ -22,6 +22,10 @@ public class CommentsService {
     public ArrayList<Comments> getMsgList(int pageNo) {
         return (ArrayList<Comments>) commentsMapper.selectList((pageNo - 1) * listSize, listSize);
      }
+    public List<Comments> paging(int id, int start, int listSize) {
+        return (ArrayList<Comments>) commentsMapper.paging(id, (start - 1) * listSize, listSize);
+    }
+
     
     public ArrayList<Pagination> getPagination(int pageNo) {
         ArrayList<Pagination> pgnList = new ArrayList<>();

@@ -29,10 +29,21 @@
 </style>
 </head>
 <body>
+<% 
+    String info = (String) session.getAttribute("id2");
+%>
+
 <h1>이대맛집</h1>
+
 <div style="text-align: right;">
-    <a href="login_main">${login.name} <button>로그인</button></a>
+	<h3>${login.id}</h3>
+    <% if(info == null) { %>
+        <a href="login_main"><button>로그인</button></a>
+    <% } else { %>
+        <a href="logout"><button>로그아웃</button></a>
+    <% } %>
 </div>
+
 <div id="rest_container">
     <div id="rest_item">
         <h2>천진분식</h2>

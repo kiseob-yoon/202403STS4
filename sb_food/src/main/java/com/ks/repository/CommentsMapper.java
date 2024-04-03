@@ -19,6 +19,8 @@ public interface CommentsMapper {
 	Comments selectCommentstById(int num);
 	List<Comments> selectAll(int id);
 	List<Comments> selectList(int start, int listSize);
+	List<Comments> paging(int id, int start, int listSize);
 	public ArrayList<Pagination> getPagination(int pageNo);
+	
 
 }
