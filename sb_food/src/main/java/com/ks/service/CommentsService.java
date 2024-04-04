@@ -19,6 +19,11 @@ public class CommentsService {
 	@Autowired
 	private CommentsMapper commentsMapper;
 	
+	public Double average(int id) {
+		return commentsMapper.average(id);
+		
+	}
+	
     public ArrayList<Comments> getMsgList(int pageNo) {
         return (ArrayList<Comments>) commentsMapper.selectList((pageNo - 1) * listSize, listSize);
      }

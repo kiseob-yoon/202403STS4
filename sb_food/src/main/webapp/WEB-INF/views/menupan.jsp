@@ -6,14 +6,16 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menupan</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<title>이대맛집 | ${store.storename}</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=xzes908xi0"></script>
 </head>
 <body>
 	<script
@@ -24,15 +26,17 @@
 			<div class="header">
 
 				<div class="login">
-					<span style="font-size:25px;"> <form action="/root" method="get">
-    <input type="hidden" name="id" value="${info.id}">
-    <button type="submit">
-        <img src="img/menupan.png" alt="홈" width="100" height="100">
-    </button>
-</form>
+					<span style="font-size:25px;"> 
+					<a href="/" style="text-decoration: none";>
+			<form>
+    			<input type="hidden" name="id" value="${info.id}">
+        		<img src="img/logo.png" alt="홈" width="100" height="100" >
+			</form>
+			
 
 							이대맛집
 					</span>
+					</a>
 				</div>
 			</div>
 
@@ -69,7 +73,9 @@
 						src_base="/IMAGE/Restaurant/Onepage/"
 						src_over="navi_tab04_over.gif" src_on="navi_tab04_on.gif"
 						src_off="navi_tab04_off.gif" alt="찾아가는길"></a></li>
+				<a href="logout"><button>${status}</button></a>				
 			</ul>
+
 			<!-- //네비 : End -->
 		</div>
 	</div>
@@ -108,7 +114,7 @@
 				<div class="section">
 					<dl class="restGrade">
 						<dt>평점</dt>
-						<dd class="grade">${store.grade}</dd>
+						<dd class="grade">${grade}</dd>
 					</dl>
 					<dl class="restTheme">
 						<dt>테마</dt>
@@ -175,43 +181,65 @@
 		<div>
 		<c:forEach var="comment" items="${comments}">
 		<section>
+			<div class="nickname">
 			<img id="user" src="img/user.png">
-            <div class="nickname">${comment.getNickname()}</div>
+            ${comment.getNickname()}
+            ${comment.getCurTime()}
+            <span style="float:right">평점:${comment.getGrade()}</span>
+            </div>
             <div class="comment">${comment.getComment()}</div>
 		
 		</section>
 		</c:forEach>
-		
-		<div style="width:680px; text-align:center;">	
-    	<c:forEach var="pgn" items="${pgnList}">
-		<a class="pgn" href="redirect?page=${pgn.pageNo}&id=${store.id}">
-    	<c:choose>
-        <c:when test="${pgn.curPage}">
-            <u>${pgn.display}</u>
-        </c:when>
-        <c:otherwise>
-            ${pgn.display}
-        </c:otherwise>
-    	</c:choose>
-		</a>&nbsp;
-    	</c:forEach>
-    	
+	
+<div class="container" style="width:250px; text-align:center;">
+    <ul class="pagination">
+        <c:forEach var="pgn" items="${pgnList}">
+            <li class="page-item">
+                <a class="page-link pgn" href="redirect?page=${pgn.pageNo}&id=${store.id}">
+                    <c:choose>
+                        <c:when test="${pgn.curPage}">
+                            <u>${pgn.display}</u>
+                        </c:when>
+                        <c:otherwise>
+                            ${pgn.display}
+                        </c:otherwise>
+                    </c:choose>
+                </a>
+            </li>
+        </c:forEach>
+    </ul>
+</div>
+<button onclick="toggleForm()">댓글쓰기</button>
 		</div>
-		</div>
 		
-		<div class="reviewInfo">
-		<form action="commentAdd" style="border">
-		아이디<input type="text" name="nickname" value="${info.name}"readonly style="margin-bottom:10px;">
-		<input type="hidden" name="id" value="${store.id}">
-		<textarea name="comment" rows="10"></textarea>
-		<input type="submit" value="글쓰기">
-		
-		</form>
-		</div>
+<div id="reviewForm" class="reviewInfo" style="border: 1px solid #ccc;">
+    <form action="commentAdd">
+        <img id="user" src="img/user.png">
+        <input type="text" name="nickname" value="${info.name}" readonly style="margin-bottom: 10px;"><br>
+        <input type="hidden" name="id" value="${store.id}">
+        <label for="rating">평점:</label>
+        <select id="rating" name="grade">
+            <option value="5.0">5.0</option>
+            <option value="4.0">4.0</option>
+            <option value="3.0">3.0</option>
+            <option value="2.0">2.0</option>
+            <option value="1.0">1.0</option>
+        </select><br>
+        <textarea name="comment" rows="9" placeholder="댓글을 입력해주세요" style="margin-bottom: 10px;"></textarea><br>
+        <input type="submit" value="등록" style="float: right;">
+        <input type="reset" value="초기화" style="float: right; margin-right:10px;">
+    </form>
+</div>
+
+		<p>
+		<h3>찾아가는길</h3>
+		<div id="map" style="width:100%;height:400px;"></div>
+	</div>
 
 	</div>
 	</div>
-	</div>
+
 	<script>
 		document.querySelectorAll('.delete-link').forEach(function(link) {
 			link.addEventListener('click', function(event) {
@@ -226,6 +254,73 @@
 				}
 			});
 		});
+		
+	    function toggleForm() {
+	        var reviewForm = document.getElementById("reviewForm");
+	        if (reviewForm.style.display === "none") {
+	            reviewForm.style.display = "block";
+	        } else {
+	            reviewForm.style.display = "none";
+	        }
+	    }
+
+	    window.onload = function() {
+	        // 페이지가 로드될 때 폼을 숨깁니다.
+	        var reviewForm = document.getElementById("reviewForm");
+	        reviewForm.style.display = "none";
+	    };
+	    
+	    var HOME_PATH = window.HOME_PATH || '.';
+
+	    var cityhall = new naver.maps.LatLng(${store.latitude}, ${store.longitude}),
+	        map = new naver.maps.Map('map', {
+	            center: cityhall.destinationPoint(0, 500),
+	            zoom: 15
+	        }),
+	        marker = new naver.maps.Marker({
+	            map: map,	
+	            position: cityhall
+	        });
+
+	    var contentString = [
+	            '<div class="iw_inner">',
+	            '   <h3>${store.storename}</h3>',
+	            '   <p>${store.address}<br />',
+	            '       <img src="'+ HOME_PATH +'/img/example/hi-seoul.jpg" width="55" height="55" alt="${store.storename}" class="thumb" /><br />',
+	            '       <br />',
+	            '       ',
+	            '   </p>',
+	            '</div>'
+	        ].join('');
+
+	    var infowindow = new naver.maps.InfoWindow({
+	        content: contentString
+	    });
+
+	    naver.maps.Event.addListener(marker, "click", function(e) {
+	        if (infowindow.getMap()) {
+	            infowindow.close();
+	        } else {
+	            infowindow.open(map, marker);
+	        }
+	    });
+
+	    infowindow.open(map, marker);
+	    
+	    document.addEventListener('DOMContentLoaded', function() {
+	        const commentInput = document.querySelector('textarea[name="comment"]');
+	        const charCountDisplay = document.createElement('div');
+	        charCountDisplay.style.marginTop = '5px';
+	        charCountDisplay.style.fontSize = '12px';
+	        commentInput.parentNode.insertBefore(charCountDisplay, commentInput.nextSibling);
+
+	        commentInput.addEventListener('input', function() {
+	            const charCount = this.value.length;
+	            charCountDisplay.textContent = '글자 수: ' + charCount;
+	        });
+	    });
+	    	
+	    
 		
 	</script>
 	<script

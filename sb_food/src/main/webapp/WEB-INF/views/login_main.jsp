@@ -178,50 +178,20 @@
 			</li>
 		</ul>
 	</div>
-	<%
-    if ((String)session.getAttribute("id") != null) {          
-        // 로그인 상태일 때의 출력 
-        
-%>
-	<main
-		class="container d-flex align-items-center justify-content-center">
 
-			<form action="logout" method="post">
-				<img class="mb-4" src="${path}/assets/brand/door-open.svg" alt=""
-					width="72" height="57">
-				${login.name}
-
-
-				<button class="btn btn-primary w-100 py-2" type="submit">로그아웃</button>
-				</p>
-				<button class="btn btn-primary w-100 py-2" type="button" 
-					value="회원정보 수정"
-					onclick="window.open('member_update_form.jsp', 'popup', 
-                                        'width=600, height=450')">회원정보
-					수정</button>
-				<p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
-
-		</form>
-	</main>
-	<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
-
-	<%  
-    } else {                       
-        
-%>		
             <main class="container center-form">
             <form action="login" method="post" class="col-md-6">
 			<img class="mb-4" src="${path}/assets/brand/door-open.svg" alt=""
 				width="72" height="57">
 			<h1 class="h3 mb-3 fw-normal">로그인</h1>
 
-			<div class="form-floating" style="width: 400px;">
+			<div class="form-floating" style="width: 300px;">
 				<input type="text" name="id" class="form-control" id="floatingInput"
 					placeholder="아이디"> <label for="floatingInput">아이디</label>
 			</div>
 
 
-			<div class="form-floating" style="width: 400px;">
+			<div class="form-floating" style="width: 300px;">
 				<input type="text" name="pw" class="form-control"
 					id="floatingPassword" placeholder="비밀번호"> <label
 					for="floatingPassword">비밀번호</label>
@@ -235,20 +205,18 @@
 				</label>
 			</div>
 
-			<button class="btn btn-primary custom-btn" type="submit">로그인</button>
+			<input class="btn btn-primary custom-btn" type="submit" value="로그인" style="width: 300px";></p>
 
-			<button class="btn btn-primary py-2" type="button" value="회원가입"
+			<input class="btn btn-primary py-2" type="button" value="회원가입" style="width: 300px"
 				onclick="window.open('member_join_form.jsp', 'popup', 
-                                        'width=600, height=450')">회원가입</button>
-			<p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
+                                        'width=600, height=450')">
+			<p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
 		</form>
 	</main>
 	<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 
 
-	<%
-    }
-%>
+
 </div>
 </body>
 </html>

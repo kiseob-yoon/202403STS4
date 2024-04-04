@@ -16,7 +16,9 @@
 				tel,
 				address,
 				grade,
-				thema
+				thema,
+				latitude,
+				longitude
 			FROM
 				store
 			ORDER BY id asc
@@ -32,7 +34,9 @@
 				tel,
 				address,
 				grade,
-				thema
+				thema,
+				latitude,
+				longitude
 			FROM
 				store
 			where id = #{id}
@@ -48,7 +52,9 @@
 				tel,
 				address,
 				grade,
-				thema
+				thema,
+				latitude,
+				longitude
 			) 
 			VALUES 
 			(
@@ -57,7 +63,9 @@
 				#{tel},
 				#{address},
 				#{grade},
-				#{thema}		
+				#{thema},
+				#{latitude},
+				#{longitude}
 			)
 		]]>
 	</insert>
@@ -70,18 +78,20 @@
 	</delete>
 
 	<update id="updateStore" parameterType="com.ks.dto.Store">
-	<![CDATA[
-	update store set 
-	storename=#{storename}, 
-	business=#{business}, 
-	tel=#{tel},
-	address=#{address},
-	grade=#{grade},
-	thema=#{thema} 
-	where id = #{id}
-	]]>
-
+    	<![CDATA[
+    update store set 
+    storename=#{storename}, 
+    business=#{business}, 
+    tel=#{tel},
+    address=#{address},
+    grade=#{grade},
+    thema=#{thema},
+    latitude=#{latitude},
+    longitude=#{longitude} 
+    where id = #{id}
+    	]]>
 	</update>
+
 
 
 </mapper>

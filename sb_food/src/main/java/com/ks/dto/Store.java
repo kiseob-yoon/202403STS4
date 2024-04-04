@@ -24,5 +24,6 @@ public class Store {
 	@NonNull private String address;
 	@NonNull private int grade;
 	@NonNull private String thema;
-
+	@NonNull private Double latitude;
+	@NonNull private Double longitude;
 }

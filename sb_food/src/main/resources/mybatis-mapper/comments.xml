@@ -6,9 +6,13 @@
 		select count(*) from
 		comments
 	</select>
+	
+	<select id="average" resultType="Double">
+		SELECT ROUND(AVG(grade), 1) FROM comments where id = #{id};
+	</select>
 
 	<select id="selectAll" resultType="com.ks.dto.Comments">
-		select c.nickname, c.comment
+		select c.nickname, c.comment c.curTime, c.grade
 		from comments c
 		join store s on c.id = s.id
 		where c.id = #{id}
@@ -16,7 +20,7 @@
 
 
 	<select id="selectCommentsList" resultType="com.ks.dto.Comments">
-		SELECT num, nickname,
+		SELECT num, nickname, c.curTime, c.grade
 		comment, id
 		FROM comments
 		WHERE id = #{id}
@@ -29,13 +33,17 @@
             num,
            	nickname,
             comment,
-            id
+            id,
+            curTime,
+            grade
         FROM
             comments
         WHERE
             num = #{num}
     ]]>
 	</select>
+	
+	
 
 
 	<insert id="insertComments" parameterType="com.ks.dto.Comments"> 
@@ -44,13 +52,17 @@
 			(
 				nickname,
 				comment,
-				id
+				id,
+				curTime,
+				grade
 			) 
 			VALUES 
 			(
 				#{nickname}, 
 				#{comment},
-				#{id}		
+				#{id},
+				NOW(),
+				#{grade}		
 			)
 		]]>
 	</insert>
@@ -66,7 +78,8 @@
 	<![CDATA[
 	update comments set 
 	nickname=#{nickname}, 
-	comment=#{comment} 
+	comment=#{comment},
+	grade=#{grade}
 	where num = #{num}
 	]]>
 
@@ -78,7 +91,7 @@
   	</select>
   	
   	<select id="paging" resultType="com.ks.dto.Comments">
-    SELECT c.nickname, c.comment
+    SELECT c.nickname, c.comment, c.curTime, c.grade
 	FROM comments c
 	JOIN store s ON c.id = s.id
 	WHERE c.id = #{id}

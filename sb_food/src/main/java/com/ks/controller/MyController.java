@@ -54,7 +54,7 @@ public class MyController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/root";
+		return "redirect:/";
 	}
 	
 //	*댓글*
@@ -89,7 +89,7 @@ public class MyController {
 	    return "root"; // root 페이지로 리다이렉트합니다.
 	}
 	
-	@GetMapping("root")
+	@GetMapping("/")
 	public String root(Model model,HttpSession session,String id) {
 		
 		model.addAttribute("login", loginService.selectById(id));
@@ -118,6 +118,18 @@ public class MyController {
 		model.addAttribute("msgList", commentsService.getMsgList(pageNo));
 		String id2 = (String) session.getAttribute("id2");
 		model.addAttribute("info", loginService.selectById(id2));
+		model.addAttribute("grade", commentsService.average(id));
+		
+		String info = (String) session.getAttribute("id2");
+		
+		
+		if(info == null) {
+			info = "로그인";
+		}
+		else {
+			info = "로그아웃";
+		}
+		model.addAttribute("status", info);
 		
 		return "menupan";
 	}

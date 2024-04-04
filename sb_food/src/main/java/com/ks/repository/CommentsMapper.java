@@ -21,6 +21,6 @@ public interface CommentsMapper {
 	List<Comments> selectList(int start, int listSize);
 	List<Comments> paging(int id, int start, int listSize);
 	public ArrayList<Pagination> getPagination(int pageNo);
-	
+	Double average(int id);
 
 }

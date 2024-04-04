@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이대맛집</title>
 <style>
     #rest_container {
         display: flex;
@@ -33,7 +33,10 @@
     String info = (String) session.getAttribute("id2");
 %>
 
+
+
 <h1>이대맛집</h1>
+
 
 <div style="text-align: right;">
 	<h3>${login.id}</h3>

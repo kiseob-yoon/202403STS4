@@ -21,5 +21,7 @@ public class Comments {
 	@NonNull String nickname;
 	@NonNull String comment;
 	@NonNull int id;
+	@NonNull String curTime;
+	@NonNull private Double grade;
 
 }
