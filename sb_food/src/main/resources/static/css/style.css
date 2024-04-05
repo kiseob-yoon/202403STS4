@@ -62,6 +62,7 @@ body {
 	height: auto;
 }
 
+
 /* 가게 정보 스타일 */
     .store {
         text-align: center; /* 텍스트 가운데 정렬 */
@@ -274,5 +275,65 @@ h3 {
     input[name="nickname"] {
     border: none;
     /* 다른 스타일을 추가할 수 있음 */
+}
+
+
+
+
+
+
+
+
+
+/* footer */
+footer{
+    width: 100%;
+    padding: 100px 0px;
+    border-top: 1px solid #888;
+}
+footer .inner{
+    width: 1180px;
+    margin: 0px auto;
+}
+footer .inner .upper{
+    width: 100%;
+    border-bottom: 1px solid #777;
+    padding-bottom: 20px;
+}
+footer .inner .upper::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+footer .inner .upper h1{
+    float: left;
+    font:bold 24px/1 "arial";
+    color: #666;
+}
+footer .inner .upper ul{
+    float: right;
+}
+footer .inner .upper ul li{
+    float: left;
+    margin-left: 20px;
+}
+footer .inner .upper ul li a{
+    font:bold 14px/1 "arial";
+    color: #666;
+}
+footer .inner .lower{
+    width: 100%;
+    padding-top: 20px;
+}
+footer .inner .lower address{
+    width: 100%;
+    font: 12px/1.3 "arial";
+    color:#777;
+    margin-bottom: 20px;
+}
+footer .inner .lower p{
+    width: 100%;
+    font:12px/1 "arial";
+    color:#777;
 }
 

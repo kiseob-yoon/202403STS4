@@ -70,10 +70,7 @@ public class MyController {
 	public String redirectToMenupan(@RequestParam(name = "page") int pageNo, 
 	                                 @RequestParam(name = "id") String id, 
 	                                 RedirectAttributes redirectAttributes) {
-	    // 필요한 작업 수행
-	    // ...
 
-	    // 리다이렉션을 수행하면서 페이징 정보와 함께 id 파라미터를 전달
 	    redirectAttributes.addAttribute("id", id);
 	    redirectAttributes.addAttribute("page", pageNo);
 
@@ -119,6 +116,8 @@ public class MyController {
 		String id2 = (String) session.getAttribute("id2");
 		model.addAttribute("info", loginService.selectById(id2));
 		model.addAttribute("grade", commentsService.average(id));
+		model.addAttribute("grade2", commentsService.average(id));
+		model.addAttribute("count", commentsService.commentCount(id));
 		
 		String info = (String) session.getAttribute("id2");
 		

@@ -23,6 +23,9 @@ public class CommentsService {
 		return commentsMapper.average(id);
 		
 	}
+	public int commentCount(int id) {
+		return commentsMapper.sum(id);
+	}
 	
     public ArrayList<Comments> getMsgList(int pageNo) {
         return (ArrayList<Comments>) commentsMapper.selectList((pageNo - 1) * listSize, listSize);

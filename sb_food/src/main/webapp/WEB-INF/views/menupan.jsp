@@ -6,8 +6,9 @@
 <head>
 
 <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>이대맛집 | ${store.storename}</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -15,28 +16,22 @@
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
-<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=xzes908xi0"></script>
+<script type="text/javascript"
+	src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=xzes908xi0"></script>
 </head>
 <body>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<div id="WrapTop" class="WrapTop" style="top: 0px;">
 		<div class="container">
-			<!-- 헤더 : Start -->
 			<div class="header">
 
 				<div class="login">
-					<span style="font-size:25px;"> 
-					<a href="/" style="text-decoration: none";>
-			<form>
-    			<input type="hidden" name="id" value="${info.id}">
-        		<img src="img/logo.png" alt="홈" width="100" height="100" >
-			</form>
-			
-
-							이대맛집
-					</span>
-					</a>
+					<span style="font-size: 25px;"> 
+								<input type="hidden" name="id" value="${info.id}">
+								<a href="/" style="text-decoration: none; color: black;">
+								<img src="img/logo.png" alt="홈" width="100" height="100">
+							 이대맛집 </a></span>
 				</div>
 			</div>
 
@@ -46,34 +41,11 @@
 				<span class="storeName">${store.storename}</span>
 
 			</div>
-			<!-- 네비 : Start -->
-			<ul class="navi">
-				<li class="owner" style="display: none;"><a href="javascript:;"><img
-						class="tab_img" src="/IMAGE/Restaurant/Onepage/navi_tab05_off.gif"
-						src_base="/IMAGE/Restaurant/Onepage/"
-						src_over="navi_tab05_over.gif" src_on="navi_tab05_on.gif"
-						src_off="navi_tab05_off.gif" alt="업주관리"></a></li>
-				<li><a href="javascript:;"><img class="tab_img"
-						src="/IMAGE/Restaurant/Onepage/navi_tab01_on.gif"
-						src_base="/IMAGE/Restaurant/Onepage/"
-						src_over="navi_tab01_over.gif" src_on="navi_tab01_on.gif"
-						src_off="navi_tab01_off.gif" alt="상세정보"></a></li>
-				<li><a href="javascript:;"><img class="tab_img"
-						src="/IMAGE/Restaurant/Onepage/navi_tab02_off.gif"
-						src_base="/IMAGE/Restaurant/Onepage/"
-						src_over="navi_tab02_over.gif" src_on="navi_tab02_on.gif"
-						src_off="navi_tab02_off.gif" alt="메뉴"></a></li>
-				<li><a href="javascript:;"><img class="tab_img"
-						src="/IMAGE/Restaurant/Onepage/navi_tab03_off.gif"
-						src_base="/IMAGE/Restaurant/Onepage/"
-						src_over="navi_tab03_over.gif" src_on="navi_tab03_on.gif"
-						src_off="navi_tab03_off.gif" alt="리뷰"></a></li>
-				<li><a href="javascript:;"><img class="tab_img"
-						src="/IMAGE/Restaurant/Onepage/navi_tab04_off.gif"
-						src_base="/IMAGE/Restaurant/Onepage/"
-						src_over="navi_tab04_over.gif" src_on="navi_tab04_on.gif"
-						src_off="navi_tab04_off.gif" alt="찾아가는길"></a></li>
-				<a href="logout"><button>${status}</button></a>				
+			<ul class="nav nav-pills">
+				<li class="nav-item"><a href="#" class="btn btn-outline-success" onclick="scrollToSection('menu')">메뉴판</a>
+				<li class="nav-item"><a href="#" class="btn btn-outline-success" onclick="scrollToSection('review')">리뷰</a>
+				<li class="nav-item"><a href="#" class="btn btn-outline-success" onclick="scrollToSection('directions')">찾아가는길</a>
+				<li class="nav-item"><a href="logout"><button class="btn btn-outline-success">${status}</button></a></li>
 			</ul>
 
 			<!-- //네비 : End -->
@@ -114,8 +86,35 @@
 				<div class="section">
 					<dl class="restGrade">
 						<dt>평점</dt>
-						<dd class="grade">${grade}</dd>
+						<dd id="starRating" class="grade">${grade}</dd>
+						<dd style="margin-bottom: 7px;">${grade2}점
+							| <a href="#" onclick="scrollToSection('review')" style="text-decoration: none;">후기 ${count}개</a>
+						</dd>
 					</dl>
+					<script>
+    // 평점 평균 값 (예시로 사용)
+    let averageRating = ${grade}; // 이 값을 서버에서 받아오는 방식으로 설정해야 합니다.
+
+    // 별점을 표시할 요소
+    let starRatingElement = document.getElementById("starRating");
+
+    // 별점 평균을 소수점 둘째 자리까지 표시 (반올림)
+    let roundedRating = Math.round(averageRating * 10) / 10;
+
+    // 평점을 별로 표시하기 위한 코드
+    let starHTML = "";
+    for (let i = 0; i < Math.floor(roundedRating); i++) {
+    	starHTML += '<img src="img/star-fill.svg" width="20" height="20" />';
+    }
+    if (roundedRating % 1 !== 0) {
+    	starHTML += '<img src="img/star-half.svg" width="20" height="20" />'; // 소수점 반올림 시 별 반개를 추가
+    }
+
+    // 결과를 요소에 적용
+    starRatingElement.innerHTML = starHTML;
+</script>
+
+
 					<dl class="restTheme">
 						<dt>테마</dt>
 						<dd class="theme">${store.thema}</dd>
@@ -126,7 +125,7 @@
 
 
 		<div class="tabInfo">
-			<h3>메뉴판</h3>
+			<h3 id="menu">메뉴판</h3>
 			<table class="table table-striped table-bordered table-hover">
 				<thead class="table-light">
 					<tr>
@@ -153,18 +152,13 @@
 							<td class="center-text">${item.getItem()}</td>
 
 
-							<td class="center-text"><a
-								href="updateForm?num=${item.getNum()}">
-									<button>수정</button>
-							</a>
+							<td class="center-text" >
+							<a style="margin-right:2px;" href="updateForm?num=${item.getNum()}"><button>수정</button></a> 
+								
+							<a href="delete?num=${item.getNum()}&id=${item.getId()}"><button>삭제</button></a>
 							
-								<a href="delete?num=${item.getNum()}&id=${item.getId()}">
-								<button>삭제</button>
-								</a>
-												
 							<%-- <a href="#" class="delete-link" data-num="${item.getNum()}"> 
-									<button class="delete-button">삭제</button></a> --%>
-							</td>
+									<button class="delete-button">삭제</button></a> --%></td>
 						</tr>
 					</tbody>
 				</c:forEach>
@@ -173,72 +167,117 @@
 		</div>
 
 		<a href="insertForm?id=${store.id}">
-		<button>메뉴 등록</button></a>
+			<button type="button" class="btn btn-outline-success">메뉴 등록</button>
+		</a>
 		<p>
-		
-		<h3>리뷰&평가</h3>
-		
+		<h3 id="review">리뷰&평가</h3>
+
 		<div>
-		<c:forEach var="comment" items="${comments}">
-		<section>
-			<div class="nickname">
-			<img id="user" src="img/user.png">
-            ${comment.getNickname()}
-            ${comment.getCurTime()}
-            <span style="float:right">평점:${comment.getGrade()}</span>
-            </div>
-            <div class="comment">${comment.getComment()}</div>
-		
-		</section>
-		</c:forEach>
-	
-<div class="container" style="width:250px; text-align:center;">
-    <ul class="pagination">
-        <c:forEach var="pgn" items="${pgnList}">
-            <li class="page-item">
-                <a class="page-link pgn" href="redirect?page=${pgn.pageNo}&id=${store.id}">
-                    <c:choose>
-                        <c:when test="${pgn.curPage}">
-                            <u>${pgn.display}</u>
-                        </c:when>
-                        <c:otherwise>
+			<c:forEach var="comment" items="${comments}" varStatus="loop">
+				<section>
+					<div class="nickname">
+						<img id="user" src="img/user.png"> ${comment.getNickname()}
+						${comment.getCurTime()} <span style="float: right">${comment.getGrade()}</span>
+						<div id="starRating_${loop.index}"
+							style="float: right; margin-right: 10px"></div>
+					</div>
+					<div class="comment">${comment.getComment()}</div>
+				</section>
+			</c:forEach>
+
+			<script>
+document.addEventListener('DOMContentLoaded', function() {
+    <c:forEach var="comment" items="${comments}" varStatus="loop">
+        var starRatingElement = document.getElementById("starRating_${loop.index}");
+
+        var grade = ${comment.getGrade()};
+        var starHTML = "";
+
+        for (var i = 0; i < Math.floor(grade); i++) {
+            starHTML += "⭐";
+        }
+        if (grade % 1 !== 0) {
+            starHTML += '<img src="img/star-half.svg" width="20" height="20" />';
+        }
+
+        // 결과를 요소에 적용
+        starRatingElement.innerHTML = starHTML;
+    </c:forEach>
+});
+</script>
+
+			<div class="container" style="width: 250px; text-align: center;">
+				<ul class="pagination">
+					<c:forEach var="pgn" items="${pgnList}">
+						<li class="page-item"><a class="page-link pgn"
+							href="redirect?page=${pgn.pageNo}&id=${store.id}"> <c:choose>
+									<c:when test="${pgn.curPage}">
+										<u>${pgn.display}</u>
+									</c:when>
+									<c:otherwise>
                             ${pgn.display}
                         </c:otherwise>
-                    </c:choose>
-                </a>
-            </li>
-        </c:forEach>
-    </ul>
-</div>
-<button onclick="toggleForm()">댓글쓰기</button>
+								</c:choose>
+						</a></li>
+					</c:forEach>
+				</ul>
+			</div>
+			<button type="button" class="btn btn-outline-success" onclick="toggleForm()">댓글쓰기</button>
+			<p>
 		</div>
-		
-<div id="reviewForm" class="reviewInfo" style="border: 1px solid #ccc;">
-    <form action="commentAdd">
-        <img id="user" src="img/user.png">
-        <input type="text" name="nickname" value="${info.name}" readonly style="margin-bottom: 10px;"><br>
-        <input type="hidden" name="id" value="${store.id}">
-        <label for="rating">평점:</label>
-        <select id="rating" name="grade">
-            <option value="5.0">5.0</option>
-            <option value="4.0">4.0</option>
-            <option value="3.0">3.0</option>
-            <option value="2.0">2.0</option>
-            <option value="1.0">1.0</option>
-        </select><br>
-        <textarea name="comment" rows="9" placeholder="댓글을 입력해주세요" style="margin-bottom: 10px;"></textarea><br>
-        <input type="submit" value="등록" style="float: right;">
-        <input type="reset" value="초기화" style="float: right; margin-right:10px;">
-    </form>
-</div>
+
+		<div id="reviewForm" class="reviewInfo"
+			style="border: 1px solid #ccc;">
+			<form action="commentAdd">
+				<img id="user" src="img/user.png"> <input type="text"
+					name="nickname" value="${info.name}" readonly
+					style="margin-bottom: 10px;"><br> <input type="hidden"
+					name="id" value="${store.id}"> <label for="rating">평점:</label>
+				<select id="rating" name="grade">
+					<option value="5.0">⭐⭐⭐⭐⭐</option>
+					<option value="4.0">⭐⭐⭐⭐</option>
+					<option value="3.0">⭐⭐⭐</option>
+					<option value="2.0">⭐⭐</option>
+					<option value="1.0">⭐</option>
+				</select><br>
+				<textarea name="comment" rows="9" placeholder="댓글을 입력해주세요"
+					style="margin-bottom: 10px;"></textarea>
+				<br> <input class="btn btn-outline-success" type="submit" value="등록" style="float: right;">
+				<input class="btn btn-outline-success" type="reset" value="초기화"
+					style="float: right; margin-right: 10px;">
+			</form>
+		</div>
 
 		<p>
-		<h3>찾아가는길</h3>
-		<div id="map" style="width:100%;height:400px;"></div>
+		<h3 id="directions">찾아가는길</h3>
+		<div id="map"
+			style="width: 100%; height: 400px; margin-bottom: 500px;"></div>
 	</div>
 
 	</div>
+	<footer>
+		<div class="inner">
+			<div class="upper">
+				<h1>이대맛집</h1>
+				<ul>
+					<li><a href="#">Policy</a></li>
+					<li><a href="#">Terms</a></li>
+					<li><a href="#">Family Site</a></li>
+					<li><a href="#">Sitemap</a></li>
+				</ul>
+			</div>
+			<div class="lower">
+				<address>
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas,
+					facere.<br> TEL : 031-111-1234 C.P : 010-1234-5678
+				</address>
+				<p>2024 이대맛집 &copy; copyright all rights reserved.</p>
+			</div>
+		</div>
+	</footer>
 	</div>
+
+
 
 	<script>
 		document.querySelectorAll('.delete-link').forEach(function(link) {
@@ -319,6 +358,13 @@
 	            charCountDisplay.textContent = '글자 수: ' + charCount;
 	        });
 	    });
+	    
+	    function scrollToSection(sectionId) {
+	        const section = document.getElementById(sectionId);
+	        if (section) {
+	            section.scrollIntoView({ behavior: 'smooth' });
+	        }
+	    }
 	    	
 	    
 		

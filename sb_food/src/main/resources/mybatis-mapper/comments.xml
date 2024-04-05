@@ -10,6 +10,10 @@
 	<select id="average" resultType="Double">
 		SELECT ROUND(AVG(grade), 1) FROM comments where id = #{id};
 	</select>
+	
+	<select id="sum" resultType="Integer">
+		SELECT count(*) FROM comments where id =${id};
+	</select>
 
 	<select id="selectAll" resultType="com.ks.dto.Comments">
 		select c.nickname, c.comment c.curTime, c.grade
@@ -90,13 +94,14 @@
     select * from comments order by num desc limit #{start}, #{listSize}
   	</select>
   	
-  	<select id="paging" resultType="com.ks.dto.Comments">
-    SELECT c.nickname, c.comment, c.curTime, c.grade
-	FROM comments c
-	JOIN store s ON c.id = s.id
-	WHERE c.id = #{id}
-	LIMIT #{start}, #{listSize}
-  	</select>
+	<select id="paging" resultType="com.ks.dto.Comments">
+    	SELECT c.nickname, c.comment, c.curTime, c.grade
+		FROM comments c
+		JOIN store s ON c.id = s.id
+		WHERE c.id = #{id}
+		ORDER BY num DESC
+		LIMIT #{start}, #{listSize}
+	</select>
 
 
 
