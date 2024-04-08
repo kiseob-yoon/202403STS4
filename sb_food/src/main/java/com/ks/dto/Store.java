@@ -26,4 +26,6 @@ public class Store {
 	@NonNull private String thema;
 	@NonNull private Double latitude;
 	@NonNull private Double longitude;
+	@NonNull private int likes;
+	@NonNull private int hits;
 }

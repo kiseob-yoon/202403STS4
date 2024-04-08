@@ -145,6 +145,7 @@ body {
 	display: flex;
 	flex-direction: column; /* 섹션 내부 요소를 세로로 배치 */
 	margin-bottom: 10px; /* 섹션 간격 설정 */
+	width:450px;
 }
 
 dl {
@@ -218,6 +219,21 @@ dl {
 	font-weight: bold;
 	margin: -7px 5px 5px 32px; /* 기본 마진 제거 */
 }
+.areaBasic dd.hits {
+	font-weight: bold;
+	margin: -7px 5px 5px 20px; /* 기본 마진 제거 */
+}
+
+dl.likes{
+	margin:15px 0px 0px -45px;
+	border-top: 1px solid #DDD;
+	padding: 10px 10px 10px 0px;
+}
+
+dd.likes {
+	font-weight: bold;
+	margin: 0px 0px 0px 15px; /* 기본 마진 제거 */
+}
 
 .tabInfo {
 	clear: both;
@@ -276,6 +292,8 @@ h3 {
     border: none;
     /* 다른 스타일을 추가할 수 있음 */
 }
+
+/* main 이미지 */
 
 
 

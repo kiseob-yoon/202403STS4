@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ks.dto.Comments;
 import com.ks.dto.Food;
+import com.ks.dto.Member;
 import com.ks.repository.FoodMapper;
 import com.ks.service.CommentsService;
 import com.ks.service.LoginService;
@@ -91,17 +92,32 @@ public class MyController {
 		
 		model.addAttribute("login", loginService.selectById(id));
 		String info = (String) session.getAttribute("id2");
-		
-		
-		if(info == null) {
-			info = "로그인";
-		}
-		else {
-			info = "로그아웃";
-		}
-		model.addAttribute("status", info);
-		
+	
+		model.addAttribute("storeAllList", storeService.selectStoreList());
 		return "root";
+	}
+	
+	@GetMapping("selectAll")
+	public String selectAll(Model model) {
+		model.addAttribute("storeAllList", storeService.selectStoreList());
+		return "selectAll";
+	}
+	@GetMapping("selectRank")
+	public String selectRank(Model model) {
+		model.addAttribute("storeRank", storeService.selectRank());
+		return "selectRank";
+	}
+	
+	
+	
+	@GetMapping("likePost")
+	public String like(int storeId, HttpSession session) {
+		Member member = (Member) session.getAttribute("id");
+		if (member != null) {
+		    int memberId = member.getMemberno(); // 멤버 객체에서 memberId 추출
+		    storeService.likePost(memberId, storeId); // memberId를 파라미터로 사용하여 서비스 메서드 호출
+		}
+		return "redirect:/menupan?id"+ '=' + storeId;
 	}
 	
 	@GetMapping("menupan")
@@ -118,6 +134,7 @@ public class MyController {
 		model.addAttribute("grade", commentsService.average(id));
 		model.addAttribute("grade2", commentsService.average(id));
 		model.addAttribute("count", commentsService.commentCount(id));
+		storeService.updateHits(id);
 		
 		String info = (String) session.getAttribute("id2");
 		

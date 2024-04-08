@@ -91,7 +91,44 @@
 							| <a href="#" onclick="scrollToSection('review')" style="text-decoration: none;">후기 ${count}개</a>
 						</dd>
 					</dl>
-					<script>
+					</div>
+
+					<div class="section">
+					<dl class="restTheme">
+						<dt>테마</dt>
+						<dd class="theme">${store.thema}</dd>
+					</dl>
+					</div>
+
+					<div class="section">
+					<dl class="hits">
+						<dt>조회수</dt>
+						<dd class="hits">${store.hits}회</dd>
+					</dl>
+					</div>
+				
+
+			</div>
+			
+
+				
+
+					
+		</div>
+					<div class="section" style="padding: 50px;">
+					<dl class="likes">
+					<form action="likePost">
+    				<input type="hidden" name="storeId" value="${store.id}">
+    				<span>
+        			<input type="submit" class="btn btn-outline-primary" value="좋아요">
+    				</span>
+					</form>
+						<dd class="likes">${store.likes}명이 좋아합니다.</dd>
+					</dl>
+					</div>
+							
+		
+<script>
     // 평점 평균 값 (예시로 사용)
     let averageRating = ${grade}; // 이 값을 서버에서 받아오는 방식으로 설정해야 합니다.
 
@@ -113,15 +150,6 @@
     // 결과를 요소에 적용
     starRatingElement.innerHTML = starHTML;
 </script>
-
-
-					<dl class="restTheme">
-						<dt>테마</dt>
-						<dd class="theme">${store.thema}</dd>
-					</dl>
-				</div>
-			</div>
-		</div>
 
 
 		<div class="tabInfo">

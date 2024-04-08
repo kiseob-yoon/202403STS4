@@ -21,7 +21,7 @@
 				longitude
 			FROM
 				store
-			ORDER BY id asc
+			ORDER BY id desc
 		]]>
 	</select>
 
@@ -36,7 +36,9 @@
 				grade,
 				thema,
 				latitude,
-				longitude
+				longitude,
+				likes,
+				hits
 			FROM
 				store
 			where id = #{id}
@@ -91,6 +93,48 @@
     where id = #{id}
     	]]>
 	</update>
+	
+	<update id="updateHits" parameterType="com.ks.dto.Store">
+		<![CDATA[
+		UPDATE store
+		SET hits = hits + 1
+		WHERE id = #{id};
+		
+		]]>
+	</update>
+	
+	<select id="checkLikeExists" resultType="Integer">
+		SELECT COUNT(*) FROM likes 
+		WHERE member_id = #{memberId} AND store_id = #{storeId}
+	</select>
+	
+	<insert id="addLike" parameterType="com.ks.dto.Store"> 
+		<![CDATA[
+		INSERT INTO likes (member_id, store_id) 
+		VALUES (#{memberId}, #{storeId})
+		]]>
+	</insert>
+	
+	
+	<insert id="incrementLikeCount" parameterType="com.ks.dto.Store"> 
+		<![CDATA[
+		UPDATE store SET likes = likes + 1 WHERE id = #{id}
+		]]>
+	</insert>
+	
+	<select id="selectRank" resultType="com.ks.dto.Store">
+    	<![CDATA[
+	SELECT storename, business, address, RANK() OVER (ORDER BY hits DESC) AS store_rank
+	FROM store
+	ORDER BY hits DESC
+	LIMIT 10;
+    	]]>
+	</select>
+
+	
+	
+	
+	
 
 
 
