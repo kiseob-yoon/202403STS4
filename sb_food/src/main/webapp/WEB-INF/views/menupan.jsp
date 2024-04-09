@@ -22,35 +22,48 @@
 <body>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<div id="WrapTop" class="WrapTop" style="top: 0px;">
-		<div class="container">
-			<div class="header">
 
-				<div class="login">
-					<span style="font-size: 25px;"> 
-								<input type="hidden" name="id" value="${info.id}">
-								<a href="/" style="text-decoration: none; color: black;">
-								<img src="img/logo.png" alt="홈" width="100" height="100">
-							 이대맛집 </a></span>
-				</div>
-			</div>
+<header class="b-example-divider">
+    <div class="container1">
+           	<div class="text-end" style="margin-right:35px;">
+            <a href="logout" style="margin-right:5px;"><button type="button" class="btn btn-outline-primary">${status}</button></a>
+                <button type="button" class="btn btn-warning">Sign-up</button>
+            </div>
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+            </a>
+            
 
-			<!-- //헤더 : End -->
+            <div class="login" style="margin-left:150px;">
+                <span style="font-size: 25px;"> 
+                    <input type="hidden" name="id" value="${info.id}">
+                    <a href="/" style="text-decoration: none; color: black;">
+                        <img src="img/award.svg" alt="홈" width="100" height="100"> 이대맛집
+                    </a>
+                </span>
+            </div>
 
-			<div class="store">
-				<span class="storeName">${store.storename}</span>
+            
+            <div class="storeName-container">
+                <h2 class="storeName" style="margin-left:75px; font-size:48px;">${store.storename}</h2>
+            </div>
+                                <div class="nav-wrapper" style="margin-right:25px; font-size:24px;">
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="margin-left:50px";>                    
+                    <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+                    <li><a href="#" class="nav-link px-2 text-secondary" onclick="scrollToSection('menu')">메뉴판</a></li>
+                      <li><a href="#" class="nav-link px-2 text-secondary" onclick="scrollToSection('review')">리뷰</a></li>
+                        <li><a href="#" class="nav-link px-2 text-secondary" onclick="scrollToSection('directions')">찾아가는길</a></li>
+                </ul>
+        </div>
+        
 
-			</div>
-			<ul class="nav nav-pills">
-				<li class="nav-item"><a href="#" class="btn btn-outline-success" onclick="scrollToSection('menu')">메뉴판</a>
-				<li class="nav-item"><a href="#" class="btn btn-outline-success" onclick="scrollToSection('review')">리뷰</a>
-				<li class="nav-item"><a href="#" class="btn btn-outline-success" onclick="scrollToSection('directions')">찾아가는길</a>
-				<li class="nav-item"><a href="logout"><button class="btn btn-outline-success">${status}</button></a></li>
-			</ul>
+            </div>
 
-			<!-- //네비 : End -->
-		</div>
-	</div>
+            <hr style="border-top: 1px solid #e9ecef; width: 100%; margin: 0;">
+    </div>
+</header>
+
 	<div class="WrapMain">
 
 		<div class="mainArea">
@@ -120,7 +133,8 @@
 					<form action="likePost">
     				<input type="hidden" name="storeId" value="${store.id}">
     				<span>
-        			<input type="submit" class="btn btn-outline-primary" value="좋아요">
+    				
+        			<button type="submit" class="btn btn-outline-primary"><img src="img/hand-thumbs-up.svg" style="margin:0px 5px 5px 0px;">좋아요</button>
     				</span>
 					</form>
 						<dd class="likes">${store.likes}명이 좋아합니다.</dd>
@@ -180,8 +194,8 @@
 							<td class="center-text">${item.getItem()}</td>
 
 
-							<td class="center-text" >
-							<a style="margin-right:2px;" href="updateForm?num=${item.getNum()}"><button>수정</button></a> 
+							<td class="center-text">
+							<a style="margin-right:2px;" href="updateForm?num=${item.getNum()}" id="updateButton"><button>수정</button></a>
 								
 							<a href="delete?num=${item.getNum()}&id=${item.getId()}"><button>삭제</button></a>
 							
@@ -194,9 +208,40 @@
 
 		</div>
 
-		<a href="insertForm?id=${store.id}">
-			<button type="button" class="btn btn-outline-success">메뉴 등록</button>
-		</a>
+			<button type="button" class="btn btn-outline-success" onclick="menuForm()">메뉴 등록</button>
+		<div id="here"></div><p>	
+		
+		<div id="insertForm" class="insertInfo">
+		<h3>메뉴 입력</h3>
+		<form action="insert">
+		<table>
+		<tr>
+		<th>메뉴</th>
+		<td><input type="text" name="menu"></td>
+		</tr>
+		<tr>
+		<th>가격</th>
+		<td><input type="text" name="price"></td>
+		</tr>
+		<tr>
+		<th>품목</th>
+		<td><input type="text" name="item"></td>
+
+		</tr>
+		<tr>
+		<td><input type="hidden" name="id" value="${store.id}" readonly> </td>
+		</tr>
+		
+		
+		</table>
+		<input type="submit" value="메뉴 추가">
+		<input type="reset" value="다시 입력하기">
+		</form>
+		
+		
+		
+		</div>
+		
 		<p>
 		<h3 id="review">리뷰&평가</h3>
 
@@ -204,7 +249,7 @@
 			<c:forEach var="comment" items="${comments}" varStatus="loop">
 				<section>
 					<div class="nickname">
-						<img id="user" src="img/user.png"> ${comment.getNickname()}
+						<img id="user" src="img/user1.png"> ${comment.getNickname()}
 						${comment.getCurTime()} <span style="float: right">${comment.getGrade()}</span>
 						<div id="starRating_${loop.index}"
 							style="float: right; margin-right: 10px"></div>
@@ -251,13 +296,14 @@ document.addEventListener('DOMContentLoaded', function() {
 				</ul>
 			</div>
 			<button type="button" class="btn btn-outline-success" onclick="toggleForm()">댓글쓰기</button>
+			
 			<p>
 		</div>
 
 		<div id="reviewForm" class="reviewInfo"
 			style="border: 1px solid #ccc;">
 			<form action="commentAdd">
-				<img id="user" src="img/user.png"> <input type="text"
+				<img id="user" src="img/user1.png"> <input type="text"
 					name="nickname" value="${info.name}" readonly
 					style="margin-bottom: 10px;"><br> <input type="hidden"
 					name="id" value="${store.id}"> <label for="rating">평점:</label>
@@ -270,8 +316,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				</select><br>
 				<textarea name="comment" rows="9" placeholder="댓글을 입력해주세요"
 					style="margin-bottom: 10px;"></textarea>
-				<br> <input class="btn btn-outline-success" type="submit" value="등록" style="float: right;">
-				<input class="btn btn-outline-success" type="reset" value="초기화"
+				<br> <input id="sub" class="btn btn-outline-success" type="submit" value="등록" style="float: right;">
+				<input id=replay class="btn btn-outline-success" type="reset" value="초기화"
 					style="float: right; margin-right: 10px;">
 			</form>
 		</div>
@@ -322,6 +368,17 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 		});
 		
+		
+	    function menuForm() {
+	        var insertForm = document.getElementById("insertForm");
+	        if (insertForm.style.display === "none") {
+	        	insertForm.style.display = "block";
+	        } else {
+	        	insertForm.style.display = "none";
+	        }
+	    	
+	    }
+		
 	    function toggleForm() {
 	        var reviewForm = document.getElementById("reviewForm");
 	        if (reviewForm.style.display === "none") {
@@ -330,10 +387,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	            reviewForm.style.display = "none";
 	        }
 	    }
+	    
+	    
+	    
 
 	    window.onload = function() {
 	        // 페이지가 로드될 때 폼을 숨깁니다.
 	        var reviewForm = document.getElementById("reviewForm");
+	        var insertForm = document.getElementById("insertForm");
+	        insertForm.style.display = "none";
 	        reviewForm.style.display = "none";
 	    };
 	    
@@ -393,6 +455,34 @@ document.addEventListener('DOMContentLoaded', function() {
 	            section.scrollIntoView({ behavior: 'smooth' });
 	        }
 	    }
+	    
+	    $(document).ready(function() {
+	        var clicked = false; // 버튼이 클릭되었는지 여부를 추적하는 변수
+
+	        $(document).on("click", "#updateButton", function(e) {
+	            e.preventDefault(); // 링크의 기본 동작인 페이지 이동을 방지합니다.
+	            
+	            if (!clicked) { // 버튼이 처음 클릭되었을 때
+	                var url = $(this).attr("href"); // 링크의 URL을 가져옵니다.
+	                $.ajax({
+	                    url: url, // 가져온 URL로 Ajax 요청을 보냅니다.
+	                    method: 'GET',
+	                    success: function(data) {
+	                        $('#here').html(data); // 성공적으로 데이터를 받았을 때 페이지를 업데이트합니다.
+	                    },
+	                    error: function(xhr, status, error) {
+	                        console.error(xhr.responseText); // 에러 발생 시 콘솔에 에러 메시지를 출력합니다.
+	                    }
+	                });
+	                clicked = true; // 버튼이 클릭되었음을 표시합니다.
+	            } else { // 버튼이 이미 클릭된 상태일 때
+	                // 원래의 폼으로 돌아가는 작업을 수행합니다.
+	                // 예를 들어, 이전 상태로 페이지를 리로드하거나, 폼을 초기 상태로 되돌릴 수 있습니다.
+	                location.reload(); // 페이지를 다시 로드하여 초기 상태로 복원합니다.
+	                clicked = false; // 버튼 클릭 여부를 초기화합니다.
+	            }
+	        });
+	    });
 	    	
 	    
 		

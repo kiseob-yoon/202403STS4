@@ -124,7 +124,7 @@
 	
 	<select id="selectRank" resultType="com.ks.dto.Store">
     	<![CDATA[
-	SELECT storename, business, address, RANK() OVER (ORDER BY hits DESC) AS store_rank
+	SELECT id, storename, business, address, RANK() OVER (ORDER BY hits DESC) AS store_rank
 	FROM store
 	ORDER BY hits DESC
 	LIMIT 10;

@@ -49,6 +49,7 @@ public class MyController {
 		model.addAttribute("login", loginService.selectForLogin(id, pw));		
 	    session.setAttribute("id", loginService.selectById(id));
 	    session.setAttribute("id2", id);
+		model.addAttribute("storeAllList", storeService.selectStoreList());
 //	    session.setAttribute("pw", pw);
 	    return "root";
 	}

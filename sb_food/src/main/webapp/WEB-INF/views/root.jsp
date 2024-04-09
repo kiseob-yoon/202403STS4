@@ -101,6 +101,27 @@ h2{
 .center-text {
     text-align: center;
 }
+    .tab_list li:hover {
+        text-decoration: underline;
+    }
+    
+        .tab_list {
+        display: flex;
+        list-style-type: none;
+    }
+    
+    .tab_list li {
+        cursor: pointer;
+        margin-right: 5px;
+        padding: 5px 10px; /* 각 요소의 안쪽 여백을 조정합니다 */
+        border: 1px solid #ccc; /* 테두리 추가 */
+        border-radius: 5px; /* 요소의 모서리를 둥글게 만듭니다 */
+    }
+    
+    /* 호버 상태일 때 배경색 변경 */
+    .tab_list li:hover {
+        background-color: #f0f0f0;
+    }
     
 </style>
 </head>
@@ -108,6 +129,7 @@ h2{
 <% 
     String info = (String) session.getAttribute("id2");
 %>
+
 
 
 
@@ -119,104 +141,39 @@ h2{
         <a href="login_main"><button type="button" class="btn btn-outline-success">로그인</button></a>
     <% } else { %>
         <a href="logout"><button type="button" class="btn btn-outline-success">로그아웃</button></a>
-    <% } %>
+    <% 
+    } 
+    %>
 </div>
 
 <div class="WrapMain">
 
 <section>
-<h3>인기 BEST 4</h3>
-    <div class="inner">
-        <div class="wrap">
-            <article>
-                <div class="pic">
-                    <img src="img/1/img.jpeg" alt="1번째 콘텐츠 이미지">
-                </div>
-                <h2><a href="#">천진분식</a></h2>
-                <p>중식당 맛집</p>
-                <p class="rest_info"><a href="menupan?id=1"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
-            </article>
-            <article>
-                <div class="pic">
-                    <img src="img/3/img.jpeg" alt="2번째 콘텐츠 이미지">
-                </div>
-                <h2><a href="#">맘스터치</a></h2>
-                <p>햄버거 맛집</p>
-                <p class="rest_info"><a href="menupan?id=3"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
-            </article>
-            <article>
-                <div class="pic">
-                    <img src="img/1/img.jpeg" alt="3번째 콘텐츠 이미지">
-                </div>
-                <h2><a href="#">천진분식</a></h2>
-                <p>중식당 맛집</p>
-                <p class="rest_info"><a href="menupan?id=3"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
-                
-            </article>
-                <article>
-                <div class="pic">
-                    <img src="img/1/img.jpeg" alt="3번째 콘텐츠 이미지">
-                </div>
-                <h2><a href="#">천진분식</a></h2>
-                <p>중식당 맛집</p>
-                <p class="rest_info"><a href="menupan?id=3"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
-                
-            </article>
-        </div>
-            </div>
-</section>
-
-<section>
 <h3>가성비 BEST 4</h3>
     <div class="inner">
         <div class="wrap">
+        <c:forEach var="store" items="${storeAllList}" varStatus="loop">
             <article>
                 <div class="pic">
-                    <img src="img/1/img.jpeg" alt="1번째 콘텐츠 이미지">
+                    <img src="img/${store.id}/img.jpeg" alt="1번째 콘텐츠 이미지">
                 </div>
-                <h2><a href="#">천진분식</a></h2>
-                <p>중식당 맛집</p>
-                <p class="rest_info"><a href="menupan?id=1"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
+                <h2><a href="#">${store.storename}</a></h2>
+                <p>${store.business} 맛집</p>
+                <p class="rest_info"><a href="menupan?id=${store.id}"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
             </article>
-            <article>
-                <div class="pic">
-                    <img src="img/3/img.jpeg" alt="2번째 콘텐츠 이미지">
-                </div>
-                <h2><a href="#">맘스터치</a></h2>
-                <p>햄버거 맛집</p>
-                <p class="rest_info"><a href="menupan?id=3"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
-            </article>
-            <article>
-                <div class="pic">
-                    <img src="img/1/img.jpeg" alt="3번째 콘텐츠 이미지">
-                </div>
-                <h2><a href="#">천진분식</a></h2>
-                <p>중식당 맛집</p>
-                <p class="rest_info"><a href="menupan?id=3"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
-                
-            </article>
-                <article>
-                <div class="pic">
-                    <img src="img/1/img.jpeg" alt="3번째 콘텐츠 이미지">
-                </div>
-                <h2><a href="#">천진분식</a></h2>
-                <p>중식당 맛집</p>
-                <p class="rest_info"><a href="menupan?id=3"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
-                
-            </article>
+
+             </c:forEach>
         </div>
             </div>
 </section>
-<h3>맛집 정보 검색</h3>
+<h3>TOP10 맛집 정보</h3>
 <div class="tab" id="tab-area" style="display: flex; justify-content: center;">
-    <ul class="tab_list" style="display: flex;">
-    			<form action="commentAdd">
-    			<input type="hidden"
-					name="id" value=""><label for="rating">검색:</label>
-				<select id="rating" name="grade">
-					<option value="1">최신순</option>
-					<option value="2">인기순</option>
-				</select>
+    <ul class="tab_list" style="display: flex; list-style-type: none;">
+        <!-- 최신순 텍스트 -->
+        <li id="latest" style="cursor: pointer; margin-right:5px">최신순</li>
+        <!-- 인기순 텍스트 -->
+        <li id="popularity" style="cursor: pointer;">인기순</li>
+        
     </ul>
 </div>
 <div id="here"></div>
@@ -226,24 +183,34 @@ h2{
 </div>
 <script>
 $(function() {
-    $("#rating").on("change", function() {
-        let sel = $(this).val();
-        if (sel == '1') {
-            $.ajax({
-                url: '/selectAll',
-                method: 'GET',
-                success: function(data) {
-                    $('#here').html(data);
-                }
-            });
-        } else if (sel == '2') {
-            $.ajax({
-                url: '/selectRank',
-                method: 'GET',
-                success: function(data) {
-                    $('#here').html(data);
-                }
-            });
+    // 최신순 클릭 이벤트 핸들러
+    $("#latest").click(function() {
+        $.ajax({
+            url: '/selectAll',
+            method: 'GET',
+            success: function(data) {
+                $('#here').html(data);
+            }
+        });
+    });
+
+    // 인기순 클릭 이벤트 핸들러
+    $("#popularity").click(function() {
+        $.ajax({
+            url: '/selectRank',
+            method: 'GET',
+            success: function(data) {
+                $('#here').html(data);
+            }
+        });
+    });
+
+    // 페이지 로드 시 초기 데이터 로드
+    $.ajax({
+        url: '/selectAll',
+        method: 'GET',
+        success: function(data) {
+            $('#here').html(data);
         }
     });
 });

@@ -9,8 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>메뉴 수정</h1>
-	<form action="update">
+	<p>
+	<form action="update" id="insertForm">
+	<h3>메뉴 수정</h3>
 		<table>
 			<tr>
 				<th>메뉴</th>
