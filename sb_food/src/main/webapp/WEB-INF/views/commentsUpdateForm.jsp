@@ -10,28 +10,22 @@
 </head>
 <body>
 	<p>
-	<form action="update" id="insertForm">
-	<h3>메뉴 수정</h3>
+	<form action="commentsUpdate" id="insertForm">
+	<h3>댓글 수정</h3>
 		<table>
 			<tr>
-				<th>메뉴</th>
-				<td><input type="text" name="menu" value="${update.menu}"></td>
+				<th>댓글</th>
+				<td><input type="text" name="comment" value="${selectCommentstById.comment}"></td>
 			</tr>
-			
 			<tr>
-				<th>가격</th>
-				<td><input type="text" name="price" value="${update.price}"></td>
+				<th>평점</th>
+				<td><input type="text" name="grade" value="${selectCommentstById.grade}"></td>
 			</tr>
-			
-			<tr>
-				<th>품목</th>
-				<td><input type="text" name="item" value="${update.item}"></td>
-			</tr>
-			<td><input type="hidden" name="num" value="${update.num}" readonly></td>
-			
-			<tr>
-			<td><input type="hidden" name="id" value="${update.id}" readonly>
+			<td><input type="hidden" name="num" value="${selectCommentstById.num}" readonly></td>
+	
+			<td><input type="hidden" name="id" value="${selectCommentstById.id}" readonly>
 			</td>
+
 			</tr>
 
 

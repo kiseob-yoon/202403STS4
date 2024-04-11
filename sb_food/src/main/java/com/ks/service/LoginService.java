@@ -21,7 +21,12 @@ public class LoginService {
 	public Member selectById(String id) {
 		return loginMapper.selectById(id);
 	}
-	
+	public void memberJoin(Member member) {
+		loginMapper.memberJoin(member);
+	}
+	public void memberUpdate(Member member) {
+		loginMapper.memberUpdate(member);
+	}
 	
 	
 }

@@ -5,6 +5,12 @@
 	<select id="selectCount" resultType="Integer">
 		select count(*) from store
 	</select>
+	
+	<select id="selectStore" resultType="com.ks.dto.Store">
+    	select * from store
+    	where storename like concat('%', #{storename}, '%')
+	</select>
+
 
 
 	<select id="selectStoreList" resultType="com.ks.dto.Store">

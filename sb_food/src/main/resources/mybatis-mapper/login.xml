@@ -21,6 +21,36 @@
 			where id = #{id}	
 	]]>
 	</select>
+	
+	<insert id="memberJoin" parameterType="com.ks.dto.Member"> 
+		<![CDATA[
+			INSERT INTO member
+			(
+				id,
+				pw,
+				name
+				
+			) 
+			VALUES 
+			(
+				#{id}, 
+				#{pw},
+				#{name}
+				
+			)
+		
+		]]>
+	</insert>
+	
+	<update id="memberUpdate" parameterType="com.ks.dto.Member">
+		<![CDATA[
+			update member set
+			id = #{id},
+			pw = #{pw},
+			name = #{name}
+			where memberno = #{memberno}
+		]]>
+	</update>
 
 
 

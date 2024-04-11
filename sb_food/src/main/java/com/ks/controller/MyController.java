@@ -58,6 +58,35 @@ public class MyController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	@GetMapping("/member_join")
+	public String member_join() {
+		return "member_join";
+	}
+	
+	@PostMapping("/join")
+	public String join(Member member) {
+		loginService.memberJoin(member);
+		return "redirect:/";
+	}
+	@GetMapping("/member_update")
+	public String member_update(Member member) {
+		loginService.memberUpdate(member);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/member_recent")
+	public String member_recent(HttpSession session,Model model) {
+		Member member = (Member) session.getAttribute("id");
+		String memberId = null;
+		if (member != null) {
+		    memberId = member.getId(); // 멤버 객체에서 memberId 추출
+		}
+		
+	    model.addAttribute("memberInfo", loginService.selectById(memberId));
+		return "member_update";
+	}
+	
+	
 	
 //	*댓글*
 	@GetMapping("/commentAdd")
@@ -107,6 +136,11 @@ public class MyController {
 	public String selectRank(Model model) {
 		model.addAttribute("storeRank", storeService.selectRank());
 		return "selectRank";
+	}
+	@GetMapping("selectStore")
+	public String selectStore(Model model,String storename) {
+		model.addAttribute("selectStore", storeService.selectStore(storename));
+		return "selectStore";
 	}
 	
 	
@@ -160,6 +194,27 @@ public class MyController {
 	public String updateForm(Model model,@RequestParam int num) {
 		model.addAttribute("update", menuService.selectMenutById(num));
 		return "updateForm";
+	}
+	@GetMapping("/commentsUpdateForm")
+	public String commentsUpdateForm(Model model, HttpSession session,Integer num,int id) {
+		model.addAttribute("selectCommentstById", commentsService.selectCommentstById(num,id));
+
+		return "commentsUpdateForm";
+	}
+	@GetMapping("/commentsUpdate")
+	public String commentsUpdateForm(HttpSession session,Comments comments,int id) {
+		Member member = (Member) session.getAttribute("id");
+		if (member != null) {
+		    int memberId = member.getMemberno();
+		    
+		}
+	    commentsService.updateComments(comments);
+		return "redirect:/menupan?id"+ '=' + id;
+	}
+	@GetMapping("/commentsDelete")
+	public String commentsDelete(Model model,int num,int id) {
+		commentsService.deleteComments(num);
+		return "redirect:/menupan?id"+ '=' + id;
 	}
 
 	@GetMapping("/insert")

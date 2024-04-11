@@ -139,9 +139,10 @@ h2{
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
           <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-        </a>
+        
         
         <img src="img/award.svg" alt="홈" width="50" height="50"><h2 class="logo">맛집랭킹</h2>
+        </a>
 
       <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 mx-auto">
         <form action="selectStore" class="d-flex" role="search">
@@ -161,8 +162,6 @@ h2{
     <% 
     } 
     %>
-    <a href="member_join"><button type="button" class="btn btn-outline-success">join</button></a>
-    <a href="member_recent"><button type="button" class="btn btn-outline-success">update</button></a>
 </div>
 
       </div>
@@ -177,10 +176,11 @@ h2{
 
     <div class="inner">
         <div class="wrap">
-        <h3 style="text-align: left; border-bottom:1px solid #e9ecef;">가성비 BEST 4</h3>
-        <c:forEach var="store" items="${storeAllList}" varStatus="loop">
+        <h3 style="text-align: left;">맛집</h3>
+        <c:forEach var="store" items="${selectStore}" varStatus="loop">
             <article>
                 <div class="pic">
+                	
                     <img src="img/${store.id}/img.jpeg" alt="1번째 콘텐츠 이미지">
                 </div>
                 <h2><a href="#">${store.storename}</a></h2>
@@ -192,55 +192,11 @@ h2{
         </div>
             </div>
 </section>
-<h3>TOP10 맛집 정보</h3>
-<div class="tab" id="tab-area" style="display: flex; justify-content: center;">
-    <ul class="tab_list" style="display: flex; list-style-type: none;">
-        <!-- 최신순 텍스트 -->
-        <li id="latest" style="cursor: pointer; margin-right:5px">최신순</li>
-        <!-- 인기순 텍스트 -->
-        <li id="popularity" style="cursor: pointer;">인기순</li>
-        
-    </ul>
-</div>
-<div id="here"></div>
 
 
 
 </div>
-<script>
-$(function() {
-    // 최신순 클릭 이벤트 핸들러
-    $("#latest").click(function() {
-        $.ajax({
-            url: '/selectAll',
-            method: 'GET',
-            success: function(data) {
-                $('#here').html(data);
-            }
-        });
-    });
 
-    // 인기순 클릭 이벤트 핸들러
-    $("#popularity").click(function() {
-        $.ajax({
-            url: '/selectRank',
-            method: 'GET',
-            success: function(data) {
-                $('#here').html(data);
-            }
-        });
-    });
-
-    // 페이지 로드 시 초기 데이터 로드
-    $.ajax({
-        url: '/selectAll',
-        method: 'GET',
-        success: function(data) {
-            $('#here').html(data);
-        }
-    });
-});
-</script>
 
 </body>
 </html>

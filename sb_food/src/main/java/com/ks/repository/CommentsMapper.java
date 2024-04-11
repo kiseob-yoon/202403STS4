@@ -16,7 +16,7 @@ public interface CommentsMapper {
 	void insertComments(Comments comments);
 	void updateComments(Comments comments);
 	void deleteComments(int num);
-	Comments selectCommentstById(int num);
+	Comments selectCommentstById(int num,int id);
 	List<Comments> selectAll(int id);
 	List<Comments> selectList(int start, int listSize);
 	List<Comments> paging(int id, int start, int listSize);

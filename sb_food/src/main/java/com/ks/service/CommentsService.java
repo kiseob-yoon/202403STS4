@@ -87,8 +87,8 @@ public class CommentsService {
 		commentsMapper.deleteComments(num);
 	}
 	
-	public Comments selectCommentstById(int num) {
-		return commentsMapper.selectCommentstById(num);
+	public Comments selectCommentstById(int num, int id) {
+		return commentsMapper.selectCommentstById(num,id);
 	}
 	public List<Comments> selectAll(int id){
 		return commentsMapper.selectAll(id);

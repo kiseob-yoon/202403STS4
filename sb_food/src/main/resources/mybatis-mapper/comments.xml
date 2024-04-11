@@ -43,7 +43,7 @@
         FROM
             comments
         WHERE
-            num = #{num}
+            num = #{num} and id = #{id}
     ]]>
 	</select>
 	
@@ -81,10 +81,9 @@
 	<update id="updateComments" parameterType="com.ks.dto.Comments">
 	<![CDATA[
 	update comments set 
-	nickname=#{nickname}, 
 	comment=#{comment},
 	grade=#{grade}
-	where num = #{num}
+	where num = #{num} and id = #{id}
 	]]>
 
 	</update>
@@ -95,7 +94,7 @@
   	</select>
   	
 	<select id="paging" resultType="com.ks.dto.Comments">
-    	SELECT c.nickname, c.comment, c.curTime, c.grade
+    	SELECT c.nickname, c.comment, c.curTime, c.grade, c.num
 		FROM comments c
 		JOIN store s ON c.id = s.id
 		WHERE c.id = #{id}

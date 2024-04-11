@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-<title>이대맛집 | ${store.storename}</title>
+<title>맛집랭킹 | ${store.storename}</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -39,7 +39,7 @@
                 <span style="font-size: 25px;"> 
                     <input type="hidden" name="id" value="${info.id}">
                     <a href="/" style="text-decoration: none; color: black;">
-                        <img src="img/award.svg" alt="홈" width="100" height="100"> 이대맛집
+                        <img src="img/award.svg" alt="홈" width="100" height="100"> 맛집랭킹
                     </a>
                 </span>
             </div>
@@ -250,12 +250,26 @@
 				<section>
 					<div class="nickname">
 						<img id="user" src="img/user1.png"> ${comment.getNickname()}
-						${comment.getCurTime()} <span style="float: right">${comment.getGrade()}</span>
+						${comment.getCurTime()}<span style="float: right">${comment.getGrade()}</span>
+						
 						<div id="starRating_${loop.index}"
-							style="float: right; margin-right: 10px"></div>
+							style="float: right";>
+						
+						</div>
+						<img class="toggleMenuBtn" src="img/three-dots.svg" alt="Toggle Menu" style="cursor: pointer; width: 20px; height: 20px;">
+		
 					</div>
+					<ul class="menu" style="display: none;">
+    					<a href="commentsUpdateForm?num=${comment.getNum()}&id=${store.id}" style="text-decoration:none;"><li>수정</li></a>
+
+    					<a href="commentsDelete?num=${comment.getNum()}&id=${store.id}" style="text-decoration:none;"><li>삭제</li></a>
+					</ul>
+
 					<div class="comment">${comment.getComment()}</div>
+
+
 				</section>
+
 			</c:forEach>
 
 			<script>
@@ -332,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	<footer>
 		<div class="inner">
 			<div class="upper">
-				<h1>이대맛집</h1>
+				<h1>맛집랭킹</h1>
 				<ul>
 					<li><a href="#">Policy</a></li>
 					<li><a href="#">Terms</a></li>
@@ -345,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas,
 					facere.<br> TEL : 031-111-1234 C.P : 010-1234-5678
 				</address>
-				<p>2024 이대맛집 &copy; copyright all rights reserved.</p>
+				<p>2024 맛집랭킹 &copy; copyright all rights reserved.</p>
 			</div>
 		</div>
 	</footer>
@@ -484,6 +498,25 @@ document.addEventListener('DOMContentLoaded', function() {
 	        });
 	    });
 	    	
+	    
+	    document.addEventListener('DOMContentLoaded', function() {
+	        var toggleMenuButtons = document.querySelectorAll('.toggleMenuBtn');
+
+	        toggleMenuButtons.forEach(function(button) {
+	            button.addEventListener('click', function() {
+	                // 버튼의 부모 요소들 중 'section'을 찾습니다.
+	                var parentSection = this.closest('section');
+	                // 찾은 'section' 내에서 '.menu' 클래스를 가진 요소를 찾습니다.
+	                var menu = parentSection.querySelector('.menu');
+
+	                if (menu) {
+	                    // 메뉴의 표시 상태를 토글합니다.
+	                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+	                }
+	            });
+	        });
+	    });
+
 	    
 		
 	</script>

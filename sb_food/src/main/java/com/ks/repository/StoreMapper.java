@@ -22,4 +22,6 @@ public interface StoreMapper {
     int checkLikeExists(int memberId, int storeId);
     int addLike(int memberId, int storeId);
     int incrementLikeCount(int storeId);
+    
+    List<Store> selectStore(String storename);
 }

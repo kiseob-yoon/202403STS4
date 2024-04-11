@@ -47,6 +47,10 @@ public class StoreService {
 		storeMapper.updateHits(id);
 	}
 	
+	public List<Store> selectStore(String storename) {
+		return storeMapper.selectStore(storename);
+	}
+	
 	@Transactional
     public String likePost(int memberId, int storeId) {
         int count = storeMapper.checkLikeExists(memberId, storeId);

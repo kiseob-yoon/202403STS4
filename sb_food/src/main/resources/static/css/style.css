@@ -68,6 +68,26 @@ body {
     margin-right: auto;
 }
 
+.menu {
+    list-style: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: white; /* 배경색 추가 */
+    position: absolute; /* 절대 위치 */
+    right: 0; /* 오른쪽 정렬 */
+    z-index: 1000; /* 다른 요소보다 상위 레이어 */
+}
+
+/* 메뉴 항목 스타일 */
+.menu li {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.menu li:hover {
+    background-color: #f0f0f0;
+}
+
 
 
 /* 가게 정보 스타일 */
@@ -275,6 +295,7 @@ h3 {
         padding: 10px; /* 안쪽 여백 */
         margin-bottom: 10px; /* 아래쪽 마진 */
         border-radius: 5px; /* 모서리 둥글게 */
+        height:100px;
     }
 
     /* 닉네임 스타일 */
