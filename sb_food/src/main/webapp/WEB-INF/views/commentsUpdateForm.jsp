@@ -30,7 +30,7 @@
 
 
 		</table>
-		<input type="submit" value="메뉴 수정"> <input type="reset"
+		<input type="submit" class="green-button" value="메뉴 수정"> <input type="reset" class="green-button"
 			value="다시 입력하기">
 
 	</form>

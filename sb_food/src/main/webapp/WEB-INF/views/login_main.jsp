@@ -206,10 +206,8 @@
 			</div>
 
 			<input class="btn btn-success" type="submit" value="로그인" style="width: 300px";></p>
-
-			<input class="btn btn-success" type="button" value="회원가입" style="width: 300px"
-				onclick="window.open('member_join_form.jsp', 'popup', 
-                                        'width=600, height=450')">
+			
+			<a href="member_join"><input class="btn btn-success" type="button" value="회원가입" style="width: 300px"></a>
 			<p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
 		</form>
 	</main>

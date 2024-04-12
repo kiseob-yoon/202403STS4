@@ -10,9 +10,7 @@
     	select * from store
     	where storename like concat('%', #{storename}, '%')
 	</select>
-
-
-
+	
 	<select id="selectStoreList" resultType="com.ks.dto.Store">
 		<![CDATA[
 			SELECT
@@ -21,13 +19,25 @@
 				business,
 				tel,
 				address,
-				grade,
 				thema,
 				latitude,
 				longitude
 			FROM
 				store
 			ORDER BY id desc
+		]]>
+	</select>
+
+
+
+	<select id="selectStorePointer" resultType="com.ks.dto.Store">
+		<![CDATA[
+			SELECT
+            *
+			FROM
+				store
+			ORDER BY hits desc
+            LIMIT 4;
 		]]>
 	</select>
 
@@ -39,7 +49,6 @@
 				business,
 				tel,
 				address,
-				grade,
 				thema,
 				latitude,
 				longitude,
@@ -59,7 +68,6 @@
 				business,
 				tel,
 				address,
-				grade,
 				thema,
 				latitude,
 				longitude
@@ -70,7 +78,6 @@
 				#{business},
 				#{tel},
 				#{address},
-				#{grade},
 				#{thema},
 				#{latitude},
 				#{longitude}
@@ -92,7 +99,6 @@
     business=#{business}, 
     tel=#{tel},
     address=#{address},
-    grade=#{grade},
     thema=#{thema},
     latitude=#{latitude},
     longitude=#{longitude} 

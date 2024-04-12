@@ -8,7 +8,7 @@
 	</select>
 	
 	<select id="average" resultType="Double">
-		SELECT ROUND(AVG(grade), 1) FROM comments where id = #{id};
+		SELECT COALESCE(ROUND(AVG(grade), 1), 0.0) FROM comments WHERE id = #{id};
 	</select>
 	
 	<select id="sum" resultType="Integer">

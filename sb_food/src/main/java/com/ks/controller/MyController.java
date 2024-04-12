@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ks.dto.Comments;
 import com.ks.dto.Food;
 import com.ks.dto.Member;
+import com.ks.dto.Store;
 import com.ks.repository.FoodMapper;
 import com.ks.service.CommentsService;
 import com.ks.service.LoginService;
@@ -50,6 +51,7 @@ public class MyController {
 	    session.setAttribute("id", loginService.selectById(id));
 	    session.setAttribute("id2", id);
 		model.addAttribute("storeAllList", storeService.selectStoreList());
+		model.addAttribute("storePointer", storeService.selectStorePointer());
 //	    session.setAttribute("pw", pw);
 	    return "root";
 	}
@@ -66,7 +68,7 @@ public class MyController {
 	@PostMapping("/join")
 	public String join(Member member) {
 		loginService.memberJoin(member);
-		return "redirect:/";
+		return "redirect:/login_main";
 	}
 	@GetMapping("/member_update")
 	public String member_update(Member member) {
@@ -77,15 +79,38 @@ public class MyController {
 	@GetMapping("/member_recent")
 	public String member_recent(HttpSession session,Model model) {
 		Member member = (Member) session.getAttribute("id");
+		String memberId = member.getId(); // 멤버 객체에서 memberId 추출
+	    model.addAttribute("memberInfo", loginService.selectById(memberId));
+		return "member_update";
+	}
+	
+	@GetMapping("/storeForm")
+	public String storeForm(HttpSession session,Model model) {
+		Member member = (Member) session.getAttribute("id");
 		String memberId = null;
 		if (member != null) {
 		    memberId = member.getId(); // 멤버 객체에서 memberId 추출
 		}
 		
-	    model.addAttribute("memberInfo", loginService.selectById(memberId));
-		return "member_update";
+	    model.addAttribute("memberId", loginService.selectById(memberId));
+		return "storeForm";
+	}
+	@GetMapping("/store_submit")
+	public String store_submit(Model model, Store store) {
+		storeService.insertStore(store);
+		return "redirect:/";
 	}
 	
+	@GetMapping("/storeUpdateForm")
+	public String storeUpdateForm(Model model, int id) {
+		model.addAttribute("store",storeService.selectStoretById(id));
+		return "storeUpdateForm";
+	}
+	@GetMapping("/store_update")
+	public String storeUpdate(Model model, int id,@RequestParam(defaultValue = "1", name = "page") int pageNo,HttpSession session,Store store) {		
+		storeService.updateStore(store);
+		return "redirect:/menupan?id"+ '=' + id;
+	}
 	
 	
 //	*댓글*
@@ -124,12 +149,14 @@ public class MyController {
 		String info = (String) session.getAttribute("id2");
 	
 		model.addAttribute("storeAllList", storeService.selectStoreList());
+		model.addAttribute("storePointer", storeService.selectStorePointer());
 		return "root";
 	}
 	
 	@GetMapping("selectAll")
 	public String selectAll(Model model) {
 		model.addAttribute("storeAllList", storeService.selectStoreList());
+		model.addAttribute("storePointer", storeService.selectStorePointer());
 		return "selectAll";
 	}
 	@GetMapping("selectRank")

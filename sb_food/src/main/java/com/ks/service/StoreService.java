@@ -19,6 +19,9 @@ public class StoreService {
 	public int selectCount() {
 		return storeMapper.selectCount();
 	}
+	public List<Store> selectStorePointer(){
+		return storeMapper.selectStorePointer();
+	}
 	
 	public List<Store> selectStoreList(){
 		return storeMapper.selectStoreList();

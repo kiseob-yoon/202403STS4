@@ -12,6 +12,7 @@ public interface StoreMapper {
 	
 	int selectCount();
 	List<Store> selectStoreList();
+	List<Store> selectStorePointer();
 	List<Store> selectRank();
 	void insertStore(Store store);
 	void updateStore(Store store);

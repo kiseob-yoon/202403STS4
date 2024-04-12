@@ -145,8 +145,8 @@ h2{
         </a>
 
       <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 mx-auto">
-        <form action="selectStore" class="d-flex" role="search">
-          <input name="storename" type="search" class="form-control" placeholder="search" aria-label="Search">
+        <form action="selectStore" class="d-flex" role="search" onsubmit="return validateForm()">
+          <input name="storename" type="search" class="form-control" placeholder="search" aria-label="Search" id="searchInput">
                   <input type="submit" value="검색" class="btn btn-outline-success" style="margin-left:10px;">
         </form>
 
@@ -176,16 +176,16 @@ h2{
 
     <div class="inner">
         <div class="wrap">
-        <h3 style="text-align: left;">맛집</h3>
         <c:forEach var="store" items="${selectStore}" varStatus="loop">
             <article>
                 <div class="pic">
-                	
+                	<a href="menupan?id=${store.id}">
                     <img src="img/${store.id}/img.jpeg" alt="1번째 콘텐츠 이미지">
+                    </a>
                 </div>
-                <h2><a href="#">${store.storename}</a></h2>
+                <h2><a href="menupan?id=${store.id}">${store.storename}</a></h2>
                 <p>${store.business} 맛집</p>
-                <p class="rest_info"><a href="menupan?id=${store.id}"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
+                <p class="rest_info"></p>
             </article>
 
              </c:forEach>
@@ -196,7 +196,23 @@ h2{
 
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+function validateForm() {
+    var input = document.getElementById('searchInput').value;
+    if (input.trim() === "") {
+        Swal.fire({  // SweetAlert 함수 사용
+            title: '오류!',
+            text: '검색어를 입력해 주세요.',
+            icon: 'warning',  // 아이콘 종류: 'warning', 'error', 'success', 'info'
+            confirmButtonText: '확인'
+        });
+        return false;
+    }
+    return true;
+}
+</script>
 
 </body>
 </html>

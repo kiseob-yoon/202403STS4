@@ -52,7 +52,7 @@ section .inner .wrap::after{
     clear: both;
 }
 section .inner .wrap article{
-    width: 350px;
+    width: 280px;
     float: left;
     margin-right: 20px;
 }
@@ -129,7 +129,17 @@ h2{
 <% 
     String info = (String) session.getAttribute("id2");
 %>
-
+<div style="text-align: right;">
+    <% if(info == null) { %>
+        <a href="login_main"><button type="button" class="btn btn-outline-success">로그인</button></a>
+    <% } else { %>
+        <a href="logout"><button type="button" class="btn btn-outline-success">로그아웃</button></a>
+    <% 
+    } 
+    %>
+    <a href="storeForm"><button type="button" class="btn btn-outline-success">점포등록</button></a>
+    <a href="member_recent"><button type="button" class="btn btn-outline-success">회원정보 수정</button></a>
+</div>
 
 
 
@@ -144,70 +154,66 @@ h2{
         <img src="img/award.svg" alt="홈" width="50" height="50"><h2 class="logo">맛집랭킹</h2>
 
       <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 mx-auto">
-        <form action="selectStore" class="d-flex" role="search">
-          <input name="storename" type="search" class="form-control" placeholder="search" aria-label="Search">
+        <form action="selectStore" class="d-flex" role="search" onsubmit="return validateForm()">
+          <input name="storename" type="search" class="form-control" placeholder="search" aria-label="Search" id="searchInput">
                   <input type="submit" value="검색" class="btn btn-outline-success" style="margin-left:10px;">
         </form>
 
       </div>
       
         
-        
-<div style="text-align: right;">
-    <% if(info == null) { %>
-        <a href="login_main"><button type="button" class="btn btn-outline-success">로그인</button></a>
-    <% } else { %>
-        <a href="logout"><button type="button" class="btn btn-outline-success">로그아웃</button></a>
-    <% 
-    } 
-    %>
-    <a href="member_join"><button type="button" class="btn btn-outline-success">join</button></a>
-    <a href="member_recent"><button type="button" class="btn btn-outline-success">update</button></a>
-</div>
 
       </div>
     </div>
   </header>
 
 
-
 <div class="WrapMain">
 
 <section>
-
     <div class="inner">
         <div class="wrap">
-        <h3 style="text-align: left; border-bottom:1px solid #e9ecef;">가성비 BEST 4</h3>
-        <c:forEach var="store" items="${storeAllList}" varStatus="loop">
+        <h3 style="text-align: left; border-bottom:1px solid #e9ecef; margin-top:100px;">가성비 BEST 4</h3>
+        <c:forEach var="store" items="${storePointer}" varStatus="loop">
             <article>
+            
                 <div class="pic">
+                <a href="menupan?id=${store.id}">
                     <img src="img/${store.id}/img.jpeg" alt="1번째 콘텐츠 이미지">
                 </div>
-                <h2><a href="#">${store.storename}</a></h2>
+                <h2><a href="menupan?id=${store.id}">${store.storename}</a></h2>
                 <p>${store.business} 맛집</p>
-                <p class="rest_info"><a href="menupan?id=${store.id}"><button type="button" class="btn btn-outline-success">자세히 보기</button></a></p>
+                <p class="rest_info"></a></p>
             </article>
 
              </c:forEach>
         </div>
             </div>
 </section>
-<h3>TOP10 맛집 정보</h3>
-<div class="tab" id="tab-area" style="display: flex; justify-content: center;">
-    <ul class="tab_list" style="display: flex; list-style-type: none;">
-        <!-- 최신순 텍스트 -->
-        <li id="latest" style="cursor: pointer; margin-right:5px">최신순</li>
-        <!-- 인기순 텍스트 -->
-        <li id="popularity" style="cursor: pointer;">인기순</li>
-        
-    </ul>
+<section>
+    <div class="inner">
+        <div class="wrap">
+<div style="display: flex; align-items: center; width: 100%;">
+    <h3 style="text-align: left; margin-top:100px; margin-bottom: 25px; flex-grow: 1;">TOP10 맛집 정보</h3>
+    <div class="tab" id="tab-area" style="flex-basis: 300px; flex-shrink: 0;">
+        <ul class="tab_list" style="display: flex; list-style-type: none; justify-content: flex-end; margin: 0;">
+            <li id="latest" style="cursor: pointer; margin-top:80px;">최신순</li>
+            <li id="popularity" style="cursor: pointer; margin-top:80px;">인기순</li>  
+        </ul>
+    </div>
 </div>
+        </div>
+            </div>
 <div id="here"></div>
+</section>
 
 
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
+
 $(function() {
     // 최신순 클릭 이벤트 핸들러
     $("#latest").click(function() {
@@ -240,6 +246,22 @@ $(function() {
         }
     });
 });
+
+function validateForm() {
+    var input = document.getElementById('searchInput').value;
+    if (input.trim() === "") {
+        Swal.fire({  // SweetAlert 함수 사용
+            title: '경고!',
+            text: '검색어를 입력해 주세요.',
+            icon: 'warning',  // 아이콘 종류: 'warning', 'error', 'success', 'info'
+            confirmButtonText: '확인'
+        });
+        return false;
+    }
+    return true;
+}
+
+
 </script>
 
 </body>

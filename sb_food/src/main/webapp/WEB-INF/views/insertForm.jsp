@@ -10,7 +10,6 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <h1>메뉴 추가</h1>
@@ -35,8 +34,8 @@
 		
 		
 		</table>
-		<input id="submitBtn" type="submit" value="메뉴 추가">
-		<input id="resetBtn" type="reset" value="다시 입력하기">
+		<input type="submit" value="메뉴 추가" class="green-button">
+		<input type="reset" value="다시 입력하기" class="green-button">
 
 
 		</form>

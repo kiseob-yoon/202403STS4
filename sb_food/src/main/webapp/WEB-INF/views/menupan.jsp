@@ -27,7 +27,8 @@
     <div class="container1">
            	<div class="text-end" style="margin-right:35px;">
             <a href="logout" style="margin-right:5px;"><button type="button" class="btn btn-outline-primary">${status}</button></a>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+                <a href="member_join"><button type="button" class="btn btn-warning">Sign-up</button></a>
+                <a href="storeUpdateForm?id=${store.id}" class="btn btn-outline-success">업체정보 수정</a>
             </div>
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -99,7 +100,7 @@
 				<div class="section">
 					<dl class="restGrade">
 						<dt>평점</dt>
-						<dd id="starRating" class="grade">${grade}</dd>
+						<dd id="starRating" class="grade" style="margin-left:30px;">${grade}</dd>
 						<dd style="margin-bottom: 7px;">${grade2}점
 							| <a href="#" onclick="scrollToSection('review')" style="text-decoration: none;">후기 ${count}개</a>
 						</dd>
@@ -209,11 +210,11 @@
 		</div>
 
 			<button type="button" class="btn btn-outline-success" onclick="menuForm()">메뉴 등록</button>
-		<div id="here"></div><p>	
+		<div id="here" style="margin-bottom:50px;"></div><p>	
 		
 		<div id="insertForm" class="insertInfo">
 		<h3>메뉴 입력</h3>
-		<form action="insert">
+		<form action="insert" style="margin-bottom:50px;">
 		<table>
 		<tr>
 		<th>메뉴</th>
@@ -234,8 +235,8 @@
 		
 		
 		</table>
-		<input type="submit" value="메뉴 추가">
-		<input type="reset" value="다시 입력하기">
+		<input type="submit" value="메뉴 추가" class="green-button">
+		<input type="reset" value="다시 입력하기" class="green-button">
 		</form>
 		
 		
@@ -260,7 +261,7 @@
 		
 					</div>
 					<ul class="menu" style="display: none;">
-    					<a href="commentsUpdateForm?num=${comment.getNum()}&id=${store.id}" style="text-decoration:none;"><li>수정</li></a>
+    					<a href="commentsUpdateForm?num=${comment.getNum()}&id=${store.id}" id="commentButton" style="text-decoration:none; "><li>수정</li></a>
 
     					<a href="commentsDelete?num=${comment.getNum()}&id=${store.id}" style="text-decoration:none;"><li>삭제</li></a>
 					</ul>
@@ -309,13 +310,15 @@ document.addEventListener('DOMContentLoaded', function() {
 					</c:forEach>
 				</ul>
 			</div>
-			<button type="button" class="btn btn-outline-success" onclick="toggleForm()">댓글쓰기</button>
+			<div id="commentUpdate"></div>
+			</p>
+			<button type="button" class="btn btn-outline-success" onclick="toggleForm()" style="margin-bottom:10px;">댓글쓰기</button>
 			
 			<p>
 		</div>
 
 		<div id="reviewForm" class="reviewInfo"
-			style="border: 1px solid #ccc;">
+			style="border: 1px solid #ccc; margin-bottom:50px;">
 			<form action="commentAdd">
 				<img id="user" src="img/user1.png"> <input type="text"
 					name="nickname" value="${info.name}" readonly
@@ -335,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					style="float: right; margin-right: 10px;">
 			</form>
 		</div>
-
+		
 		<p>
 		<h3 id="directions">찾아가는길</h3>
 		<div id="map"
@@ -402,9 +405,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	        }
 	    }
 	    
-	    
-	    
-
 	    window.onload = function() {
 	        // 페이지가 로드될 때 폼을 숨깁니다.
 	        var reviewForm = document.getElementById("reviewForm");
@@ -497,7 +497,36 @@ document.addEventListener('DOMContentLoaded', function() {
 	            }
 	        });
 	    });
-	    	
+	    
+	    $(document).ready(function() {
+	        var clicked = false; // 버튼이 클릭되었는지 여부를 추적하는 변수
+
+	        $(document).on("click", "#commentButton", function(e) {
+	            e.preventDefault(); // 링크의 기본 동작인 페이지 이동을 방지합니다.
+	            
+	            if (!clicked) { // 버튼이 처음 클릭되었을 때
+	                var url = $(this).attr("href"); // 링크의 URL을 가져옵니다.
+	                $.ajax({
+	                    url: url, // 가져온 URL로 Ajax 요청을 보냅니다.
+	                    method: 'GET',
+	                    success: function(data) {
+	                        $('#commentUpdate').html(data); // 성공적으로 데이터를 받았을 때 페이지를 업데이트합니다.
+	                    },
+	                    error: function(xhr, status, error) {
+	                        console.error(xhr.responseText); // 에러 발생 시 콘솔에 에러 메시지를 출력합니다.
+	                    }
+	                });
+	                clicked = true; // 버튼이 클릭되었음을 표시합니다.
+	            } else { // 버튼이 이미 클릭된 상태일 때
+	                // 원래의 폼으로 돌아가는 작업을 수행합니다.
+	                // 예를 들어, 이전 상태로 페이지를 리로드하거나, 폼을 초기 상태로 되돌릴 수 있습니다.
+	                location.reload(); // 페이지를 다시 로드하여 초기 상태로 복원합니다.
+	                clicked = false; // 버튼 클릭 여부를 초기화합니다.
+	            }
+	        });
+	    });
+	    
+	   
 	    
 	    document.addEventListener('DOMContentLoaded', function() {
 	        var toggleMenuButtons = document.querySelectorAll('.toggleMenuBtn');

@@ -36,8 +36,8 @@
 
 
 		</table>
-		<input type="submit" value="메뉴 수정"> <input type="reset"
-			value="다시 입력하기">
+		<input type="submit" value="메뉴 수정" class="green-button">
+		<input type="reset" value="다시 입력하기" class="green-button">
 
 	</form>
 	<%-- <a href="delete?num=${update.num}&id=${update.id}"><button>삭제</button></a> --%>
