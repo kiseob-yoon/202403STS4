@@ -12,4 +12,7 @@ public interface LoginMapper {
 	Member selectById(String id);
 	void memberJoin(Member member);
 	void memberUpdate(Member member);
+	void memberDelete(int id);
+	boolean LoginConfirm(String id, String pw);
+	
 }

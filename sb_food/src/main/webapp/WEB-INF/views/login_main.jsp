@@ -212,6 +212,24 @@
 		</form>
 	</main>
 	<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+<script type="text/javascript">
+    window.onload = function() {
+        <% if (request.getAttribute("error") != null) { %>
+            var error = "<%= request.getAttribute("error") %>";
+            if (error) {
+                swal({
+                    title: "로그인 실패",
+                    text: "아이디나 비밀번호가 올바르지 않습니다.",
+                    icon: "error",
+                    button: "다시 시도",
+                });
+            }
+        <% } %>
+    }
+</script>
+
 
 
 

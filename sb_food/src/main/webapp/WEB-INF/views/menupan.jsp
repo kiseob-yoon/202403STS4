@@ -26,9 +26,24 @@
 <header class="b-example-divider">
     <div class="container1">
            	<div class="text-end" style="margin-right:35px;">
-            <a href="logout" style="margin-right:5px;"><button type="button" class="btn btn-outline-primary">${status}</button></a>
                 <a href="member_join"><button type="button" class="btn btn-warning">Sign-up</button></a>
-                <a href="storeUpdateForm?id=${store.id}" class="btn btn-outline-success">업체정보 수정</a>
+                
+                
+    <c:choose>
+    <c:when test="${adminData == 'admin'}">
+	<a href="logout"><button type="button" class="btn btn-outline-success">로그아웃</button></a>
+	<a href="storeUpdateForm?id=${store.id}"><button type="button" class="btn btn-outline-success">업체정보 수정</button></a>
+	</c:when>
+	
+	<c:when test="${LoggedIn}">
+		<a href="logout"><button type="button" class="btn btn-outline-success">로그아웃</button></a>		    
+	</c:when>
+
+	<c:otherwise>
+		<a href="login_main"><button type="button" class="btn btn-outline-success">로그인</button></a>
+	</c:otherwise>
+	</c:choose>
+	
             </div>
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -125,8 +140,6 @@
 			</div>
 			
 
-				
-
 					
 		</div>
 					<div class="section" style="padding: 50px;">
@@ -177,7 +190,12 @@
 						<th scope="col" style="text-align: center;">수량</th>
 						<th scope="col" style="text-align: center;">분류</th>
 
-						<th scope="col" style="text-align: center;">수정</th>
+			<c:choose>
+    			<c:when test="${adminData == 'admin'}">
+					<th scope="col" style="text-align: center;">수정</th>
+
+				</c:when>
+			</c:choose>
 					</tr>
 				</thead>
 				<c:forEach var="item" items="${menu}">
@@ -193,15 +211,17 @@
 								</form>
 							</td>
 							<td class="center-text">${item.getItem()}</td>
+	
+			<c:choose>
+    			<c:when test="${adminData == 'admin'}">
+			<td class="center-text">
+			<a style="margin-right:2px;" href="updateForm?num=${item.getNum()}" id="updateButton"><button>수정</button></a>
+			<a href="delete?num=${item.getNum()}&id=${item.getId()}"><button>삭제</button></a></td>
+
+			</c:when>
+			</c:choose>
 
 
-							<td class="center-text">
-							<a style="margin-right:2px;" href="updateForm?num=${item.getNum()}" id="updateButton"><button>수정</button></a>
-								
-							<a href="delete?num=${item.getNum()}&id=${item.getId()}"><button>삭제</button></a>
-							
-							<%-- <a href="#" class="delete-link" data-num="${item.getNum()}"> 
-									<button class="delete-button">삭제</button></a> --%></td>
 						</tr>
 					</tbody>
 				</c:forEach>
@@ -209,7 +229,11 @@
 
 		</div>
 
-			<button type="button" class="btn btn-outline-success" onclick="menuForm()">메뉴 등록</button>
+			    <c:choose>
+    			<c:when test="${adminData == 'admin'}">
+				<button type="button" class="btn btn-outline-success" onclick="menuForm()">메뉴 등록</button>
+				</c:when>
+				</c:choose>
 		<div id="here" style="margin-bottom:50px;"></div><p>	
 		
 		<div id="insertForm" class="insertInfo">
@@ -257,7 +281,10 @@
 							style="float: right";>
 						
 						</div>
+						
+						<c:if test="${comment.getNickname() == commentModify}">
 						<img class="toggleMenuBtn" src="img/three-dots.svg" alt="Toggle Menu" style="cursor: pointer; width: 20px; height: 20px;">
+						</c:if>
 		
 					</div>
 					<ul class="menu" style="display: none;">
@@ -549,6 +576,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	    
 		
 	</script>
+	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

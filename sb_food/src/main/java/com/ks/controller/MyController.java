@@ -41,18 +41,34 @@ public class MyController {
 //	*로그인*
 	@GetMapping("/login_main")
 	public String loginForm(HttpSession session) {
-	    String id = (String) session.getAttribute("id");
+	    //String id = (String) session.getAttribute("id");
 	    //String pw = (String) session.getAttribute("pw");
 		return "login_main";
 	}
 	@PostMapping("/login")
-	public String login(HttpSession session, Model model, String id, String pw) {
+	public String login(HttpSession session, Model model, String id, String pw, RedirectAttributes redirectAttributes) {
+		
+	    boolean isLoggedIn = loginService.LoginConfirm(id, pw);
+	    
+	    
+	    if(isLoggedIn) {
+	    	session.setAttribute("LoggedIn", true);
+		    model.addAttribute("LoggedIn", isLoggedIn);
+	    } else {
+	        redirectAttributes.addFlashAttribute("error", "로그인 실패");
+	        return "redirect:/login_main";
+	    }
+	    
+        if ("admin".equals(id)) {
+            session.setAttribute("adminIn",id);
+        }
+        model.addAttribute("adminData", session.getAttribute("adminIn"));
 		model.addAttribute("login", loginService.selectForLogin(id, pw));		
 	    session.setAttribute("id", loginService.selectById(id));
 	    session.setAttribute("id2", id);
 		model.addAttribute("storeAllList", storeService.selectStoreList());
 		model.addAttribute("storePointer", storeService.selectStorePointer());
-//	    session.setAttribute("pw", pw);
+		
 	    return "root";
 	}
 	@GetMapping("/logout")
@@ -75,6 +91,12 @@ public class MyController {
 		loginService.memberUpdate(member);
 		return "redirect:/";
 	}
+	@GetMapping("/member_delete")
+	public String member_delete(HttpSession session,int memberno) {
+		session.invalidate();
+		loginService.memberDelete(memberno);
+		return "redirect:/";
+	}
 	
 	@GetMapping("/member_recent")
 	public String member_recent(HttpSession session,Model model) {
@@ -83,6 +105,8 @@ public class MyController {
 	    model.addAttribute("memberInfo", loginService.selectById(memberId));
 		return "member_update";
 	}
+	
+	
 	
 	@GetMapping("/storeForm")
 	public String storeForm(HttpSession session,Model model) {
@@ -110,6 +134,11 @@ public class MyController {
 	public String storeUpdate(Model model, int id,@RequestParam(defaultValue = "1", name = "page") int pageNo,HttpSession session,Store store) {		
 		storeService.updateStore(store);
 		return "redirect:/menupan?id"+ '=' + id;
+	}
+	@GetMapping("/store_delete")
+	public String storeDelete(int id) {
+		storeService.deleteStore(id);
+		return "redirect:/";
 	}
 	
 	
@@ -150,6 +179,8 @@ public class MyController {
 	
 		model.addAttribute("storeAllList", storeService.selectStoreList());
 		model.addAttribute("storePointer", storeService.selectStorePointer());
+		
+		model.addAttribute("adminData", session.getAttribute("adminIn"));
 		return "root";
 	}
 	
@@ -165,8 +196,9 @@ public class MyController {
 		return "selectRank";
 	}
 	@GetMapping("selectStore")
-	public String selectStore(Model model,String storename) {
+	public String selectStore(HttpSession session,Model model,String storename) {
 		model.addAttribute("selectStore", storeService.selectStore(storename));
+		model.addAttribute("adminData", session.getAttribute("adminIn"));
 		return "selectStore";
 	}
 	
@@ -198,16 +230,23 @@ public class MyController {
 		model.addAttribute("count", commentsService.commentCount(id));
 		storeService.updateHits(id);
 		
-		String info = (String) session.getAttribute("id2");
+		model.addAttribute("adminData", session.getAttribute("adminIn"));
+	
 		
-		
-		if(info == null) {
-			info = "로그인";
+	    boolean isLoggedIn = false;
+	    session.getAttribute("LoggedIn");
+	    if(isLoggedIn) {
+		    model.addAttribute("LoggedIn", isLoggedIn);
+	    }
+	    
+		Member member = (Member) session.getAttribute("id");
+		String memberId = null;
+		if (member != null) {
+		    memberId = member.getName();
+		    	model.addAttribute("commentModify", memberId);
+		    
 		}
-		else {
-			info = "로그아웃";
-		}
-		model.addAttribute("status", info);
+	    	
 		
 		return "menupan";
 	}

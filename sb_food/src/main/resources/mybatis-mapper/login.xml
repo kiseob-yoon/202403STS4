@@ -10,7 +10,16 @@
 	<select id="selectForLogin" resultType="com.ks.dto.Member">
 		<![CDATA[
 		    SELECT * FROM member
-    		WHERE id = #{id} AND pw = #{pw}
+    		WHERE id = #{id} AND pw = #{pw} and delete_yn = 'N'
+		
+		]]>
+	</select>
+	
+	<select id="LoginConfirm" parameterType="map" resultType="boolean">
+		<![CDATA[
+    		SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END
+    		FROM member
+    		WHERE id = #{id} AND pw = #{pw} and delete_yn = 'N'
 		
 		]]>
 	</select>
@@ -18,7 +27,7 @@
 	<select id="selectById" resultType="com.ks.dto.Member">
 	<![CDATA[
 			SELECT * FROM member
-			where id = #{id}	
+			where id = #{id} and delete_yn = 'N'	 
 	]]>
 	</select>
 	
@@ -51,6 +60,14 @@
 			where memberno = #{memberno}
 		]]>
 	</update>
+	
+	<delete id="memberDelete" parameterType="int">
+			<![CDATA[
+			update member set
+			delete_yn = 'Y'
+			where memberno = #{memberno}
+			]]>
+	</delete>
 
 
 

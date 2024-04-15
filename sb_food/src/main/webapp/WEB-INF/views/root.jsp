@@ -126,19 +126,27 @@ h2{
 </style>
 </head>
 <body>
-<% 
-    String info = (String) session.getAttribute("id2");
-%>
+
 <div style="text-align: right;">
-    <% if(info == null) { %>
-        <a href="login_main"><button type="button" class="btn btn-outline-success">로그인</button></a>
-    <% } else { %>
-        <a href="logout"><button type="button" class="btn btn-outline-success">로그아웃</button></a>
-    <% 
-    } 
-    %>
-    <a href="storeForm"><button type="button" class="btn btn-outline-success">점포등록</button></a>
-    <a href="member_recent"><button type="button" class="btn btn-outline-success">회원정보 수정</button></a>
+
+	<c:choose>
+	<c:when test="${adminData == 'admin'}">
+	<a href="logout"><button type="button" class="btn btn-outline-success">로그아웃</button></a>
+	<a href="member_recent"><button type="button" class="btn btn-outline-success">회원정보 수정</button></a>
+	<a href="storeForm"><button type="button" class="btn btn-outline-success">점포등록</button></a>
+	</c:when>
+	
+	<c:when test="${LoggedIn}">
+		<a href="logout"><button type="button" class="btn btn-outline-success">로그아웃</button></a>
+		    <a href="member_recent"><button type="button" class="btn btn-outline-success">회원정보 수정</button></a>
+	</c:when>
+
+	<c:otherwise>
+		<a href="login_main"><button type="button" class="btn btn-outline-success">로그인</button></a>
+	</c:otherwise>
+	</c:choose>
+    
+   
 </div>
 
 

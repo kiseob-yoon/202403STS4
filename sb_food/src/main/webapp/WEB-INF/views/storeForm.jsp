@@ -6,9 +6,17 @@
 <title>스토어 등록</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <style>
+  body {
+    background-color: #f5f5f5; /* 회색 계열 배경색 */
+  }
   form {
     max-width: 600px; /* 폼의 최대 너비 설정 */
     margin: auto; /* 폼을 페이지 중앙에 배치 */
+    border: 1px solid #ccc; /* 폼에 테두리 추가 */
+    padding: 20px; /* 폼 내부 여백 */
+    background-color: white; /* 폼 배경색을 흰색으로 설정 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 폼에 그림자 효과 추가 */
+    border-radius:5px;
   }
   .form-control {
     width: 100%; /* 입력 필드의 너비를 100%로 설정 */
@@ -17,7 +25,7 @@
 </head>
 <body>
 <div class="header">
-    <h1 style="text-align:center; margin-top:50px;">업체 등록</h1>
+    <h1 style="text-align:center; margin-top:50px; margin-bottom:50px;">업체 등록</h1>
 </div>
 <form action="store_submit" method="get">
   <div class="mb-3">

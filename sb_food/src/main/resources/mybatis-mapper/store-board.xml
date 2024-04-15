@@ -8,7 +8,7 @@
 	
 	<select id="selectStore" resultType="com.ks.dto.Store">
     	select * from store
-    	where storename like concat('%', #{storename}, '%')
+    	where storename like concat('%', #{storename}, '%') and delete_yn = 'N'
 	</select>
 	
 	<select id="selectStoreList" resultType="com.ks.dto.Store">
@@ -24,6 +24,7 @@
 				longitude
 			FROM
 				store
+			where delete_yn = 'N'
 			ORDER BY id desc
 		]]>
 	</select>
@@ -36,6 +37,7 @@
             *
 			FROM
 				store
+			where delete_yn = 'N'
 			ORDER BY hits desc
             LIMIT 4;
 		]]>
@@ -56,7 +58,8 @@
 				hits
 			FROM
 				store
-			where id = #{id}
+			
+			where id = #{id} and delete_yn = 'N'
 		]]>
 	</select>
 
@@ -84,13 +87,16 @@
 			)
 		]]>
 	</insert>
-
-	<delete id="deleteStore" parameterType="int">
-	<![CDATA[
-		delete from store where id = #{id}
 	
+	<update id="deleteStore" parameterType="int">
+	<![CDATA[
+		update store
+		set delete_yn = 'Y'
+		where id = #{id}
 	]]>
-	</delete>
+	</update>
+	
+
 
 	<update id="updateStore" parameterType="com.ks.dto.Store">
     	<![CDATA[
@@ -102,7 +108,7 @@
     thema=#{thema},
     latitude=#{latitude},
     longitude=#{longitude} 
-    where id = #{id}
+    where id = #{id} and delete_yn = 'N'
     	]]>
 	</update>
 	
@@ -110,14 +116,14 @@
 		<![CDATA[
 		UPDATE store
 		SET hits = hits + 1
-		WHERE id = #{id};
+		WHERE id = #{id} and delete_yn = 'N';
 		
 		]]>
 	</update>
 	
 	<select id="checkLikeExists" resultType="Integer">
 		SELECT COUNT(*) FROM likes 
-		WHERE member_id = #{memberId} AND store_id = #{storeId}
+		WHERE member_id = #{memberId} AND store_id = #{storeId} and delete_yn = 'N'
 	</select>
 	
 	<insert id="addLike" parameterType="com.ks.dto.Store"> 
@@ -130,7 +136,7 @@
 	
 	<insert id="incrementLikeCount" parameterType="com.ks.dto.Store"> 
 		<![CDATA[
-		UPDATE store SET likes = likes + 1 WHERE id = #{id}
+		UPDATE store SET likes = likes + 1 WHERE id = #{id} and delete_yn = 'N'
 		]]>
 	</insert>
 	
@@ -138,6 +144,7 @@
     	<![CDATA[
 	SELECT id, storename, business, address, RANK() OVER (ORDER BY hits DESC) AS store_rank
 	FROM store
+	where delete_yn = 'N'
 	ORDER BY hits DESC
 	LIMIT 10;
     	]]>

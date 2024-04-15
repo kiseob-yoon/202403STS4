@@ -18,6 +18,9 @@ public class LoginService {
 	public Member selectForLogin(String id, String pw) {
 		return loginMapper.selectForLogin(id, pw);
 	}
+	public Boolean LoginConfirm(String id, String pw) {
+		return loginMapper.LoginConfirm(id, pw);
+	}
 	public Member selectById(String id) {
 		return loginMapper.selectById(id);
 	}
@@ -26,6 +29,9 @@ public class LoginService {
 	}
 	public void memberUpdate(Member member) {
 		loginMapper.memberUpdate(member);
+	}
+	public void memberDelete(int memberno) {
+		loginMapper.memberDelete(memberno);
 	}
 	
 	
